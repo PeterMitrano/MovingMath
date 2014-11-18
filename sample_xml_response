@@ -1,0 +1,168 @@
+200 OK
+<?xml version='1.0' encoding='UTF-8'?>
+<queryresult success='true'
+    error='false'
+    numpods='5'
+    datatypes=''
+    timedout=''
+    timedoutpods=''
+    timing='1.688'
+    parsetiming='0.27'
+    parsetimedout='false'
+    recalculate=''
+    id='MSPa8061h5cheba70f7f7ae00005b2a24b8fade8621'
+    host='http://www2.wolframalpha.com'
+    server='4'
+    related='http://www2.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa8071h5cheba70f7f7ae000039908ge429d3486i&amp;s=4'
+    version='2.6'>
+ <pod title='Input'
+     scanner='Identity'
+     id='Input'
+     position='100'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext>x/2+4 = 15</plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP8081h5cheba70f7f7ae00002h4c0h8dabi02agd?MSPStoreType=image/gif&amp;s=4'
+       alt='x/2+4 = 15'
+       title='x/2+4 = 15'
+       width='73'
+       height='33' />
+  <</subpod>
+ </pod>
+ <pod title='Plot'
+     scanner='Reduce'
+     id='RootPlot'
+     position='200'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext></plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP8091h5cheba70f7f7ae000041i15b7e5dgi47fg?MSPStoreType=image/gif&amp;s=4'
+       alt=''
+       title=''
+       width='356'
+       height='199' />
+  </subpod>
+ </pod>
+ <pod title='Alternate forms'
+     scanner='Simplification'
+     id='AlternateForm'
+     position='300'
+     error='false'
+     numsubpods='2'>
+  <subpod title=''>
+   <plaintext>x/2-11 = 0</plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP8101h5cheba70f7f7ae00004ed299cdbih6bc1d?MSPStoreType=image/gif&amp;s=4'
+       alt='x/2-11 = 0'
+       title='x/2-11 = 0'
+       width='73'
+       height='33' />
+  </subpod>
+  <subpod title=''>
+   <plaintext>(x+8)/2 = 15</plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP8111h5cheba70f7f7ae00004e36ee21be3ba83f?MSPStoreType=image/gif&amp;s=4'
+       alt='(x+8)/2 = 15'
+       title='(x+8)/2 = 15'
+       width='73'
+       height='36' />
+  </subpod>
+ </pod>
+ <pod title='Solutions'
+     scanner='Reduce'
+     id='Solution'
+     position='400'
+     error='false'
+     numsubpods='2'
+     primary='true'>
+  <subpod title=''>
+   <plaintext>x = 22</plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP8121h5cheba70f7f7ae00003c0h19a6f0fggb58?MSPStoreType=image/gif&amp;s=4'
+       alt='x = 22'
+       title='x = 22'
+       width='44'
+       height='18' />
+  </subpod>
+  <subpod title='Possible intermediate steps'>
+   <plaintext>Solve for x:
+x/2+4 = 15
+Put each term in x/2+4 over the common denominator 2: x/2+4  =  x/2+8/2:
+x/2+8/2 = 15
+x/2+8/2 = (x+8)/2:
+(x+8)/2 = 15
+Multiply both sides of (x+8)/2 = 15 by 2:
+(2 (x+8))/2 = 2×15
+(2 (x+8))/2 = 2/2×(x+8) = x+8:
+x+8 = 2×15
+2×15  =  30:
+x+8 = 30
+Subtract 8 from both sides:
+x+(8-8) = 30-8
+8-8 = 0:
+x = 30-8
+30-8 = 22:
+Answer: |  
+ | x = 22</plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP8131h5cheba70f7f7ae0000152e2ch2a0cg41d3?MSPStoreType=image/gif&amp;s=4'
+       alt='Solve for x:
+x/2+4 = 15
+Put each term in x/2+4 over the common denominator 2: x/2+4  =  x/2+8/2:
+x/2+8/2 = 15
+x/2+8/2 = (x+8)/2:
+(x+8)/2 = 15
+Multiply both sides of (x+8)/2 = 15 by 2:
+(2 (x+8))/2 = 2×15
+(2 (x+8))/2 = 2/2×(x+8) = x+8:
+x+8 = 2×15
+2×15  =  30:
+x+8 = 30
+Subtract 8 from both sides:
+x+(8-8) = 30-8
+8-8 = 0:
+x = 30-8
+30-8 = 22:
+Answer: |  
+ | x = 22'
+       title='Solve for x:
+x/2+4 = 15
+Put each term in x/2+4 over the common denominator 2: x/2+4  =  x/2+8/2:
+x/2+8/2 = 15
+x/2+8/2 = (x+8)/2:
+(x+8)/2 = 15
+Multiply both sides of (x+8)/2 = 15 by 2:
+(2 (x+8))/2 = 2×15
+(2 (x+8))/2 = 2/2×(x+8) = x+8:
+x+8 = 2×15
+2×15  =  30:
+x+8 = 30
+Subtract 8 from both sides:
+x+(8-8) = 30-8
+8-8 = 0:
+x = 30-8
+30-8 = 22:
+Answer: |  
+ | x = 22'
+       width='480'
+       height='905' />
+  </subpod>
+  <states count='1'>
+   <state name='Hide steps'
+       input='Solution__Hide steps' />
+  </states>
+ </pod>
+ <pod title='Number line'
+     scanner='Reduce'
+     id='NumberLine'
+     position='500'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <plaintext></plaintext>
+   <img src='http://www2.wolframalpha.com/Calculate/MSP/MSP8141h5cheba70f7f7ae0000277iadhfg5f6adf8?MSPStoreType=image/gif&amp;s=4'
+       alt=''
+       title=''
+       width='300'
+       height='56' />
+  </subpod>
+ </pod>
+</queryresult>

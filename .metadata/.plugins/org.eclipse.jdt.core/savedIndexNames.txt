@@ -4,7 +4,6 @@ INDEX VERSION 1.126+/home/peter/Dropbox/Workspace/WebDev/MovingMath/.metadata/.p
 460152253.index
 3542660237.index
 392775124.index
-1639228022.index
 3938652823.index
 1513993030.index
 2426646370.index

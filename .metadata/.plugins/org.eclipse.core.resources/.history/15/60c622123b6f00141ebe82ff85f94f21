@@ -1,0 +1,13 @@
+import java.awt.Color;
+
+import javax.swing.JTextField;
+
+public class MyTextField extends JTextField {
+
+	public MyTextField(String string, int i) {
+		super(string, i);
+		setBackground(Color.BLUE);
+	}
+	
+	
+}

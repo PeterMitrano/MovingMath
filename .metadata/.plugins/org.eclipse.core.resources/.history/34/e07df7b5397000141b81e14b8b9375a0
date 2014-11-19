@@ -1,0 +1,77 @@
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class XBin extends Term {
+
+	JLabel xLabel;
+	public static int weight;
+
+	public XBin() {
+		super();
+		edit.setText("?");
+		edit.setHorizontalAlignment(JTextField.LEFT);
+		edit.setLocation(W - 25, 0);
+		xLabel = new JLabel("X=");
+		xLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+		xLabel.setHorizontalAlignment(JTextField.CENTER);
+		xLabel.setBounds(-10, 0, W, W);
+		add(xLabel);
+	}
+
+	public XBin(int x, int y) {
+		super(x, y);
+		edit.setText("?");
+		edit.setHorizontalAlignment(JTextField.LEFT);
+		edit.setLocation(W - 25, 0);
+		xLabel = new JLabel("X=");
+		xLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+		xLabel.setHorizontalAlignment(JTextField.CENTER);
+		xLabel.setBounds(-10, 0, W, W);
+		add(xLabel);
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		int s = (int) (W * (Math.sqrt(weight)));
+
+		if (XBin.weight == 0) {
+		}
+
+		if (edit.getText().equals("-?")) {
+			return -XBin.weight;
+		} else {
+			g2.setColor(Color.blue);
+		}
+		if (XBweight > 0) {
+			g2.setColor(Color.blue);
+		} else if (weight < 0) {
+			g2.setColor(Color.red);
+		} else {
+			g2.setColor(Color.white);
+		}
+		g2.fill(circle);
+	}
+
+	@Override
+	public int updateWeight() {
+		if (edit.getText().equals("-?")) {
+			return -XBin.weight;
+		} else {
+			return XBin.weight;
+		}
+
+	}
+
+	public XBin cloneMe(int x, int y) {
+		XBin x1 = new XBin(x, y);
+		x1.weight = weight;
+		return x1;
+	}
+}

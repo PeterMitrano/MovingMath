@@ -1,0 +1,41 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+
+public class Constant extends Term {
+
+	public Constant() {
+		super();
+		edit.setText("1");
+		weight = 1;
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		int s = (int) (W * (Math.sqrt(weight)));
+		circle.setFrame(0, 0, s, s);
+		g2.setColor(Color.orange);
+		g2.fill(circle);
+	}
+
+	public Constant cloneMe() {
+		Constant x1 = new Constant();
+		x1.weight = weight;
+		return x1;
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+}

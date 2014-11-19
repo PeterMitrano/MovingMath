@@ -1,0 +1,6 @@
+public interface MoveTermListener {
+
+	public void addX();
+
+	public void addConstant();
+}

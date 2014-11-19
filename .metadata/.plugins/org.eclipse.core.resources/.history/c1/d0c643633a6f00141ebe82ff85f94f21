@@ -1,0 +1,21 @@
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		JFrame jf = new JFrame();
+		JPanel jp = new JPanel();
+		JTextField jtf = new JTextField("-2",4);
+		jp.add(jtf);
+		jf.add(jp);
+		jf.pack();
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jf.setVisible(true);
+
+	}
+	
+	public class MyTextField extends JTextlField(){}
+}

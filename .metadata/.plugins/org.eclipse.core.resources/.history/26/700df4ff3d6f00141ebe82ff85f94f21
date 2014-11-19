@@ -1,0 +1,22 @@
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		JFrame jf = new JFrame();
+		JPanel jp = new JPanel();
+		jp.setPreferredSize(new Dimension(500, 500));
+		MyTextField jtf = new MyTextField("-2", 4);
+		jtf.setLocation(100, 100);
+		jp.add(jtf);
+		jf.add(jp);
+		jf.pack();
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jf.setVisible(true);
+
+	}
+}

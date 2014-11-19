@@ -1,0 +1,38 @@
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.PlainDocument;
+
+public class MyTextField extends JPanel {
+
+	JTextField edit;
+
+	public MyTextField(String string, int i) {
+		edit.setHorizontalAlignment(JTextField.CENTER);
+		Border border = BorderFactory.createLineBorder(Color.gray, 100);
+		edit.setBorder(border);
+		edit.setFont(new Font("SansSerif", Font.BOLD, 40));
+		edit.setBackground(Color.gray);
+		add(edit);
+	}
+
+	@Override
+	public void setDocument(Document pd) {
+		super.setDocument(new PlainDocument() {
+			@Override
+			public void insertString(int offs, String str, AttributeSet a)
+					throws BadLocationException {
+				if (getLength() + str.length() <= 4) {
+					super.insertString(offs, str, a);
+				}
+			}
+		});
+	}
+}

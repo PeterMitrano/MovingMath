@@ -1,0 +1,198 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class ScalePanel extends JPanel implements MouseListener,
+		ActionListener, MouseMotionListener {
+
+	private JButton update;
+	private JTextField xVal;
+	private JTextFIeld xValLabel;
+
+	private ArrayList<Term> leftTerms, rightTerms;
+	private Term floatingTerm;
+	private int W = 800, H = 600;
+	public static int angle;
+	public static Point center;
+	private Rectangle trash;
+
+	public ScalePanel() {
+		setLayout(null);
+		setPreferredSize(new Dimension(W, H));
+		setBackground(new Color(20, 20, 140));
+
+		leftTerms = new ArrayList<Term>();
+		rightTerms = new ArrayList<Term>();
+
+		center = new Point(W / 2, H / 2);
+		trash = new Rectangle();
+		trash.setBounds(650, 30, 120, 120);
+
+		update = new JButton("update");
+		update.setBounds(10, 10, 80, 20);
+		xValLabel = new JLabel("X = ");
+		xValLabel.setBounds(100, 10, 80, 20);
+		xValLabel.setBackground(Color.white);
+		xVal = new JTextField("0", 4);
+		xVal.setBounds(200, 10, 80, 20);
+
+		addMouseListener(this);
+		addMouseMotionListener(this);
+		update.addActionListener(this);
+
+		add(update);
+		add(xVal);
+		add(xValLabel);
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+
+		// BAR
+		Rectangle bar = new Rectangle(600, 20);
+		bar.setBounds(center.x - bar.width / 2, center.y - bar.height / 2, 600,
+				20);
+		g2.fill(rotate(bar));
+
+		// CENTER CIRCLE
+		g2.setColor(Color.red);
+		g2.fillOval(center.x - 15, center.y - 15, 30, 30);
+
+		// TRASH SQUARE & TEXT
+		g2.fill(trash);
+		g2.setColor(Color.black);
+		g2.drawString("Discard", 685, 20);
+
+	}
+
+	public Shape rotate(Rectangle r) {
+		AffineTransform transform = new AffineTransform();
+		transform.rotate(Math.toRadians(angle), center.getX(), center.getY());
+		return transform.createTransformedShape(r);
+	}
+
+	public void addX() {
+		floatingTerm = new XBin();
+		floatingTerm.edit.setEditable(false);
+		add(floatingTerm);
+	}
+
+	public void addConstant() {
+		floatingTerm = new Constant();
+		floatingTerm.edit.setEditable(false);
+		add(floatingTerm);
+	}
+
+	public void moveTerm(Term t) {
+		t.edit.setEditable(false);
+		floatingTerm = t;
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent me) {
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent me) {
+		if (floatingTerm != null) {
+			floatingTerm
+					.setBounds(me.getX() + 5, me.getY() + 5, Term.W, Term.W);
+		}
+		repaint();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent me) {
+		if (floatingTerm != null) {
+			if (!overTrash(me.getX(), me.getY())) {
+				Term t = floatingTerm.cloneMe();
+				t.setLocation(me.getX(), center.y - Term.W);
+				t.setSize(Term.W, Term.W);
+				add(t);
+
+				if (me.getX() < W / 2) {
+					leftTerms.add(t);
+				} else {
+					rightTerms.add(t);
+				}
+			}
+			remove(floatingTerm);
+			floatingTerm = null;
+			revalidate();
+			repaint();
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent me) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent me) {
+	}
+
+	@Override
+	public void mousePressed(MouseEvent me) {
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent me) {
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		if (ae.getSource() == update) {
+
+			int leftWeight = 0, rightWeight = 0;
+
+			for (Term t : leftTerms) {
+				leftWeight += t.updateWeight();
+
+			}
+			for (Term t : rightTerms) {
+				rightWeight += t.updateWeight();
+
+			}
+
+			if (leftWeight > rightWeight) {
+				angle = -25;
+			} else if (leftWeight < rightWeight) {
+				angle = 25;
+			} else {
+				angle = 0;
+			}
+
+			for (Term t : leftTerms) {
+				t.rotate();
+			}
+			for (Term t : rightTerms) {
+				t.rotate();
+			}
+			revalidate();
+			repaint();
+		}
+	}
+
+	public boolean overTrash(int x, int y) {
+		return trash.contains(x, y);
+	}
+}

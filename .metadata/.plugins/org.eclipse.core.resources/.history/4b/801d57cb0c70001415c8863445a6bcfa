@@ -1,0 +1,29 @@
+import java.util.ArrayList;
+
+public class ScaleHalf {
+
+	private int weight;
+	ArrayList<Term> terms;
+
+	public ScaleHalf() {
+		terms = new ArrayList<Term>();
+	}
+
+	public void addTerm(Term floatingTerm) {
+		terms.add(floatingTerm);
+	}
+
+	public int getWeight() {
+		int weight = 0;
+		for (Term t : terms) {
+			weight += t.weight;
+		}
+		return weight;
+	}
+
+	public void updateWeights() {
+		for (Term t : terms) {
+			t.updateWeight();
+		}
+	}
+}

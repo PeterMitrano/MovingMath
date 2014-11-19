@@ -1,0 +1,55 @@
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class XBin extends Term {
+
+	JLabel xLabel;
+
+	public XBin() {
+		super();
+		edit.setText("?");
+		edit.setHorizontalAlignment(JTextField.LEFT);
+		edit.setLocation(W - 25, 0);
+		xLabel = new JLabel("X=");
+		xLabel.setFont(new Font("SansSerif", Font.BOLD, 30));
+		xLabel.setHorizontalAlignment(JTextField.CENTER);
+		xLabel.setBounds(-10, 0, W, W);
+		add(xLabel);
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		int s = (int) (W * (Math.sqrt(weight)));
+		rectangle.setSize(s, s);
+		g2.setColor(Color.pink);
+		Shape rotatedRect = rotate(rectangle);
+		setSize(rotatedRect.getBounds().width, rotatedRect.getBounds().height);
+		g2.fill(rotatedRect);
+	}
+
+	@Override
+	public int updateWeight() {
+		if (edit.getText().toString().equals("?")) {
+			return 0;
+		} else {
+			return super.updateWeight();
+		}
+	}
+
+	public XBin cloneMe() {
+		XBin x1 = new XBin();
+		x1.weight = weight;
+		x1.coefficient = coefficient;
+		x1.setBounds(getLocation().x, getLocation().y, getSize().width,
+				getSize().height);
+		return x1;
+	}
+}

@@ -1,0 +1,17 @@
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		JFrame jf = new JFrame();
+		JPanel jp = new JPanel();
+		jf.add(jp);
+		jf.pack();
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jf.setVisible(true);
+
+	}
+
+}

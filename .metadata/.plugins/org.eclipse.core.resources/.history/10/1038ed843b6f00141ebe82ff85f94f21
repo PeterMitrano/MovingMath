@@ -1,0 +1,27 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.BorderFactory;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+
+public class MyTextField extends JTextField {
+
+	public MyTextField(String string, int i) {
+		super(string, i);
+		Border border = BorderFactory.createLineBorder(Color.BLUE, 100);
+		setBorder(border);
+
+		setBackground(Color.gray);
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		g2.drawRect(0, 0, 100, 100);
+	}
+
+}

@@ -1,8 +1,0 @@
-public class FloatingTerm extends Term {
-
-	@Override
-	public Term cloneMe(int x, int y) {
-		return null;
-	}
-
-}

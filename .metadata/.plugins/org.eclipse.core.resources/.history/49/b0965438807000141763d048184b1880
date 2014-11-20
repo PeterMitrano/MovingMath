@@ -1,0 +1,16 @@
+import java.awt.event.ActionListener;
+
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class MenuBar extends JPanel {
+
+	JTextField exampleOutput;
+
+	public MenuBar() {
+
+		exampleOutput = new JTextField("2x +2> 6",20);
+
+		add(exampleOutput);
+	}
+}

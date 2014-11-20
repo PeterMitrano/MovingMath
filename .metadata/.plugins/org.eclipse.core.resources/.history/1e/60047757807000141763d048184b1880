@@ -1,0 +1,18 @@
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class MenuBar extends JPanel {
+
+	JTextField exampleOutput;
+
+	public MenuBar() {
+		exampleOutput = new JTextField("2x + 2 > 6", 20);
+		exampleOutput.setFont(new Font(Font.BOLD,40));
+		exampleOutput.setPreferredSize(new Dimension(100,100));
+		add(exampleOutput);
+	}
+}

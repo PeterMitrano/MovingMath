@@ -1,0 +1,55 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+public class SidePanel extends JPanel implements ActionListener, ChangeListener {
+
+	JButton addXTerm, addConstantTerm, solveForX;
+	AddTermListener apl;
+	SolveForXListener sfxl;
+
+	public SidePanel(AddTermListener apl, SolveForXListener sfxl) {
+		this.apl = apl;
+		this.sfxl = sfxl;
+		setBackground(Color.lightGray);
+		setPreferredSize(new Dimension(200, 0)); // height doesn't matter here
+
+		addXTerm = new JButton("Add X Bin");
+		addConstantTerm = new JButton("Add New Constant Term");
+		solveForX = new JButton("Auto-solve X");
+
+		solveForX.addChangeListener(this);
+		addXTerm.addActionListener(this);
+		addConstantTerm.addActionListener(this);
+
+		add(addXTerm);
+		add(addConstantTerm);
+		add(solveForX);
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		if (ae.getSource() == addXTerm) {
+			apl.addX();
+		} else if (ae.getSource() == addConstantTerm) {
+			apl.addConstant();
+		}
+
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent ce) {
+		if (ce.getSource() == solveForX) {
+			ScalePanel.solveX = !ScalePanel.solveX;
+		}
+	}
+
+}

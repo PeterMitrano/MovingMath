@@ -3,23 +3,23 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-abstract class Term extends JComponent implements MouseListener,
-		MouseMotionListener {
+abstract class Term extends JComponent implements MouseListener {
 
 	int weight, rotateDir;
 	Ellipse2D circle;
 	JTextField edit;
 	Point flatLoc, highLoc, lowLoc;
-	public static final int W = 60;
+	public static final int W = 50;
+	RemoveTermListener removeTermListener;
 
-	public Term() {
+	public Term(RemoveTermListener removeTermListener) {
+		this.removeTermListener = removeTermListener;
 		setLayout(null);
 		setOpaque(false);
 		edit = new JTextField();
@@ -28,11 +28,10 @@ abstract class Term extends JComponent implements MouseListener,
 		edit.setBorder(null);
 		edit.setDocument(new LengthRestrictedDocument(2));
 		edit.setHorizontalAlignment(JTextField.CENTER);
-		edit.setFont(new Font("SansSerif", Font.BOLD, 20));
+		edit.setFont(new Font("SansSerif", Font.BOLD, 15));
 		edit.setSize(W, W);
 		edit.setVisible(true);
 		edit.addMouseListener(this);
-		edit.addMouseMotionListener(this);
 
 		circle = new Ellipse2D.Double();
 		circle.setFrame(0, 0, W, W);
@@ -40,8 +39,8 @@ abstract class Term extends JComponent implements MouseListener,
 		add(edit);
 	}
 
-	public Term(int x, int y) {
-		this();
+	public Term(RemoveTermListener removeTermListener, int x, int y) {
+		this(removeTermListener);
 		setLocation(x, y);
 
 		flatLoc = new Point(x, y);
@@ -91,23 +90,17 @@ abstract class Term extends JComponent implements MouseListener,
 
 	@Override
 	public void mouseClicked(MouseEvent me) {
-		weight *= -1;
-		if (edit.getText().charAt(0) == '-') {
-			edit.setText(edit.getText().substring(1));
-		} else {
-			edit.setText("-" + edit.getText());
+		if (me.getClickCount() == 2) {
+			removeTermListener.removeTerm(this);
+		} else if (me.getClickCount() == 1) {
+			weight *= -1;
+			if (edit.getText().charAt(0) == '-') {
+				edit.setText(edit.getText().substring(1));
+			} else {
+				edit.setText("-" + edit.getText());
+			}
+			repaint();
 		}
-
-		repaint();
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent me) {
-		setLocation(me.getX(), me.getY());
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent me) {
 	}
 
 	@Override

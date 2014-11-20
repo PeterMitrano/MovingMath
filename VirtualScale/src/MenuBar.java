@@ -1,34 +1,18 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.Font;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class MenuBar extends JPanel implements ActionListener {
+public class MenuBar extends JPanel {
 
-	JButton generateExample;
 	JTextField exampleOutput;
 
 	public MenuBar() {
-		generateExample = new JButton("Generate Example Problem");
-		exampleOutput = new JTextField(20);
-
-		generateExample.addActionListener(this);
-
-		add(generateExample);
+		exampleOutput = new JTextField("Type equation here", 20);
+		exampleOutput.setFont(new Font("SansSerif", Font.BOLD, 40));
+		exampleOutput.setHorizontalAlignment(JTextField.CENTER);
+		exampleOutput.setPreferredSize(new Dimension(100, 100));
 		add(exampleOutput);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource() == generateExample) {
-			String eq = generateEquation();
-			exampleOutput.setText(eq);
-		}
-	}
-
-	public String generateEquation() {
-		return "-3x+2=8";
 	}
 }

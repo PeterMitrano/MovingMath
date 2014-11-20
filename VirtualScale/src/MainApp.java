@@ -2,15 +2,15 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-public class MainApp extends JFrame implements AddTermListener {
+public class MainApp extends JFrame {
 
 	ScalePanel sp;
-	PartBin pb;
+	SidePanel pb;
 
 	public MainApp() {
 		setLayout(new BorderLayout());
 		sp = new ScalePanel();
-		pb = new PartBin(this);
+		pb = new SidePanel(sp, sp);
 		add(new MenuBar(), BorderLayout.NORTH);
 		add(sp, BorderLayout.CENTER);
 		add(pb, BorderLayout.EAST);
@@ -19,18 +19,9 @@ public class MainApp extends JFrame implements AddTermListener {
 		setVisible(true);
 	}
 
-	@Override
-	public void addX() {
-		sp.addX();
-	}
-
-	@Override
-	public void addConstant() {
-		sp.addConstant();
-	}
-
 	public static void main(String[] args) {
 
 		new MainApp();
 	}
+
 }

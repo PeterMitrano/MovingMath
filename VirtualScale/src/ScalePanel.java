@@ -19,9 +19,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class ScalePanel extends JPanel implements MouseListener,
-		ActionListener, MouseMotionListener {
+		ActionListener, MouseMotionListener, RemoveTermListener,
+		AddTermListener, SolveForXListener {
 
-	private static JTextField xVal;
+	public static boolean solveX;
+
+	public static JTextField xVal;
 	private JTextField xValLabel;
 	private JButton update;
 
@@ -76,7 +79,7 @@ public class ScalePanel extends JPanel implements MouseListener,
 
 		// CENTER CIRCLE
 		g2.setColor(Color.red);
-		g2.fillOval(center.x - 15, center.y - 15, 30, 30);
+		g2.fillOval(center.x - 5, center.y - 5, 10, 10);
 
 		// TRASH SQUARE & TEXT
 		g2.fill(trash);
@@ -91,21 +94,18 @@ public class ScalePanel extends JPanel implements MouseListener,
 		return transform.createTransformedShape(r);
 	}
 
+	@Override
 	public void addX() {
-		floatingTerm = new XBin();
+		floatingTerm = new XBin(this);
 		floatingTerm.edit.setEditable(false);
 		add(floatingTerm);
 	}
 
+	@Override
 	public void addConstant() {
-		floatingTerm = new Constant();
+		floatingTerm = new Constant(this);
 		floatingTerm.edit.setEditable(false);
 		add(floatingTerm);
-	}
-
-	public void moveTerm(Term t) {
-		t.edit.setEditable(false);
-		floatingTerm = t;
 	}
 
 	@Override
@@ -150,6 +150,9 @@ public class ScalePanel extends JPanel implements MouseListener,
 				repaint();
 			}
 		}
+		update();
+		revalidate();
+		repaint();
 	}
 
 	@Override
@@ -169,21 +172,14 @@ public class ScalePanel extends JPanel implements MouseListener,
 	}
 
 	public void update() {
+
 		try {
 			XBin.weight = Integer.parseInt(xVal.getText());
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(this, "Fix your X input");
 		}
-		int leftWeight = 0, rightWeight = 0;
-
-		for (Term t : leftTerms) {
-			leftWeight += t.updateWeight();
-
-		}
-		for (Term t : rightTerms) {
-			rightWeight += t.updateWeight();
-
-		}
+		int leftWeight = updateLeftWeights();
+		int rightWeight = updateRightWeights();
 
 		if (leftWeight > rightWeight) {
 			angle = -25;
@@ -228,5 +224,65 @@ public class ScalePanel extends JPanel implements MouseListener,
 		if (ae.getSource() == update) {
 			update();
 		}
+	}
+
+	@Override
+	public void removeTerm(Term t) {
+		this.remove(t);
+		if (leftTerms.contains(t)) {
+			leftTerms.remove(t);
+		} else {
+			rightTerms.remove(t);
+		}
+		update();
+	}
+
+	@Override
+	public void solve() {
+		int A = 0, B = 0, C = 0, D = 0;
+		updateRightWeights();
+		updateLeftWeights();
+		for (Term t : leftTerms) {
+			if (t instanceof XBin) {
+				A += ((XBin) t).coefficient;
+			} else if (t instanceof Constant) {
+				C += t.weight;
+			}
+		}
+
+		for (Term t : rightTerms) {
+			if (t instanceof XBin) {
+				B += ((XBin) t).coefficient;
+			} else if (t instanceof Constant) {
+				D += t.weight;
+			}
+		}
+		try {
+			int x = (int) ((D - C) / (A - B));
+			xVal.setText(x + "");
+		} catch (ArithmeticException ae) {
+
+			JOptionPane
+					.showMessageDialog(this,
+							"You need to havea term on each side before auto-solving for X!");
+			xVal.setText("0");
+		}
+		update();
+	}
+
+	public int updateLeftWeights() {
+		int w = 0;
+		for (Term t : leftTerms) {
+			w += t.updateWeight();
+		}
+		return w;
+	}
+
+	public int updateRightWeights() {
+		int w = 0;
+		for (Term t : rightTerms) {
+			w += t.updateWeight();
+		}
+		return w;
 	}
 }

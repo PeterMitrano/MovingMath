@@ -47,7 +47,7 @@ public class ScalePanel extends JPanel implements MouseListener,
 		trash.setBounds(650, 30, 120, 120);
 
 		update = new JButton("Update");
-		update.setBounds(5, 10, 90, 20);
+		update.setBounds(10, 10, 80, 20);
 		update.addActionListener(this);
 		xValLabel = new JTextField("X = ");
 		xValLabel.setEditable(false);

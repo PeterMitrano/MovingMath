@@ -5,8 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -19,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class ScalePanel extends JPanel implements MouseListener,
-		ActionListener, MouseMotionListener {
+		MouseMotionListener {
 
 	private static JTextField xVal;
 	private JTextField xValLabel;
@@ -46,9 +44,6 @@ public class ScalePanel extends JPanel implements MouseListener,
 		trash = new Rectangle();
 		trash.setBounds(650, 30, 120, 120);
 
-		update = new JButton("Update");
-		update.setBounds(5, 10, 90, 20);
-		update.addActionListener(this);
 		xValLabel = new JTextField("X = ");
 		xValLabel.setEditable(false);
 		xValLabel.setBounds(100, 10, 30, 20);
@@ -59,7 +54,6 @@ public class ScalePanel extends JPanel implements MouseListener,
 		addMouseListener(this);
 		addMouseMotionListener(this);
 
-		add(update);
 		add(xVal);
 		add(xValLabel);
 	}
@@ -221,12 +215,5 @@ public class ScalePanel extends JPanel implements MouseListener,
 
 	public boolean overTrash(int x, int y) {
 		return trash.contains(x, y);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource() == update) {
-			update();
-		}
 	}
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="18" version="2.0">
+<workbench progressCount="13" version="2.0">
 <workbenchAdvisor/>
 <window height="767" maximized="true" width="1018" x="403" y="-4">
 <fastViewData fastViewLocation="1024"/>
@@ -10,9 +10,9 @@
 <coolItem id="group.file" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="144" y="30"/>
 <coolItem id="additions" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="60" y="30"/>
-<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="60" y="30"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="68" y="30"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="156" y="30"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="88" y="30"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="124" y="30"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.debug.ui.launch.toolbar" itemType="typeToolBarContribution" x="-1" y="-1"/>
@@ -22,7 +22,7 @@
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="232" y="30"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -31,14 +31,28 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ScalePanel.java" partName="ScalePanel.java" path="/home/peter/Dropbox/Workspace/WebDev/MovingMath/VirtualScale/src/ScalePanel.java" title="ScalePanel.java" tooltip="VirtualScale/src/ScalePanel.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VirtualScale/src/ScalePanel.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4733" selectionTopPixel="2392"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="XBin.java" partName="XBin.java" path="/home/peter/Dropbox/Workspace/WebDev/MovingMath/VirtualScale/src/XBin.java" title="XBin.java" tooltip="VirtualScale/src/XBin.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VirtualScale/src/XBin.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1574" selectionTopPixel="237"/>
+</editor>
 </editors>
 <views>
 <view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Project Explorer">
 <viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.cdt.ui.cview.groupincludes="false" org.eclipse.cdt.ui.cview.groupmacros="false" org.eclipse.cdt.ui.editor.CUChildren="true" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
 </view>
 </views>
 <perspectives activePart="org.eclipse.ui.navigator.ProjectExplorer" activePerspective="org.eclipse.ui.resourcePerspective">
@@ -78,6 +92,7 @@
 <hide_toolbar_item_id id="org.eclipse.debug.ui.commands.RunToLine"/>
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.ui.navigator.ProjectExplorer"/>
 <fastViewBars/>
 <layout>
@@ -110,10 +125,12 @@
 </folder>
 </info>
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@7a396b72" ratio="0.5226586" ratioLeft="692" ratioRight="632" relationship="2" relative="org.eclipse.ui.editorss">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.ui.console.ConsoleView" label="LabelNotFound"/>
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.debug.ui.DebugView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
 </folder>
 </info>
 <info folder="true" part="bottomLeft" ratio="0.5" ratioLeft="332" ratioRight="332" relationship="4" relative="topLeft">
@@ -128,12 +145,180 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/VirtualScale/src/ScalePanel.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/VirtualScale/src/XBin.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/VirtualScale/src/Term.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/VirtualScale/src/SolveForXListener.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/VirtualScale/src/MainApp.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/VirtualScale/src/SidePanel.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/VirtualScale/src/AddTermListener.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/VirtualScale/src/XBin.java"/>
+</editors>
+<item historyLabel="Term.java" index="2">
+<position info="not_deleted" x="1940" y="203"/>
+</item>
+<item historyLabel="XBin.java" index="1">
+<position info="not_deleted" x="1875" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="754" y="0"/>
+</item>
+<item historyLabel="XBin.java" index="1">
+<position info="not_deleted" x="1875" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="754" y="0"/>
+</item>
+<item historyLabel="XBin.java" index="1">
+<position info="not_deleted" x="2070" y="0"/>
+</item>
+<item historyLabel="Term.java" index="2">
+<position info="not_deleted" x="1940" y="203"/>
+</item>
+<item historyLabel="XBin.java" index="1">
+<position info="not_deleted" x="2214" y="0"/>
+</item>
+<item historyLabel="Term.java" index="2">
+<position info="not_deleted" x="1940" y="203"/>
+</item>
+<item historyLabel="XBin.java" index="1">
+<position info="not_deleted" x="2214" y="0"/>
+</item>
+<item historyLabel="XBin.java" index="1">
+<position info="not_deleted" x="1735" y="0"/>
+</item>
+<item historyLabel="XBin.java" index="1">
+<position info="not_deleted" x="1523" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="754" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position/>
+</item>
+<item historyLabel="XBin.java" index="1">
+<position info="not_deleted" x="371" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position/>
+</item>
+<item historyLabel="SolveForXListener.java" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="SolveForXListener.java" index="3">
+<position info="not_deleted" x="59" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position/>
+</item>
+<item historyLabel="MainApp.java" index="4">
+<position/>
+</item>
+<item historyLabel="SidePanel.java" index="5">
+<position/>
+</item>
+<item historyLabel="MainApp.java" index="4">
+<position info="not_deleted" x="235" y="0"/>
+</item>
+<item historyLabel="SidePanel.java" index="5">
+<position/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position/>
+</item>
+<item historyLabel="MainApp.java" index="4">
+<position/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="6026" y="0"/>
+</item>
+<item historyLabel="MainApp.java" index="4">
+<position info="not_deleted" x="231" y="0"/>
+</item>
+<item historyLabel="SidePanel.java" index="5">
+<position/>
+</item>
+<item historyLabel="MainApp.java" index="4">
+<position info="not_deleted" x="231" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position/>
+</item>
+<item historyLabel="AddTermListener.java" index="6">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="2743" y="0"/>
+</item>
+<item historyLabel="MainApp.java" index="4">
+<position info="not_deleted" x="231" y="0"/>
+</item>
+<item historyLabel="SidePanel.java" index="5">
+<position info="not_deleted" x="1116" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position/>
+</item>
+<item historyLabel="XBin.java" index="7">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="SidePanel.java" index="5">
+<position info="not_deleted" x="1116" y="0"/>
+</item>
+<item historyLabel="XBin.java" index="7">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="5798" y="0"/>
+</item>
+<item historyLabel="XBin.java" index="7">
+<position info="not_deleted" x="1242" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="5245" y="0"/>
+</item>
+<item historyLabel="XBin.java" index="7">
+<position info="not_deleted" x="1609" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="5245" y="0"/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="5056" y="0"/>
+</item>
+<item historyLabel="XBin.java" index="7">
+<position/>
+</item>
+<item historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="5532" y="0"/>
+</item>
+<item historyLabel="XBin.java" index="7">
+<position info="not_deleted" x="1574" y="0"/>
+</item>
+<item active="true" historyLabel="ScalePanel.java" index="0">
+<position info="not_deleted" x="5532" y="0"/>
+</item>
+</navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
+<trimArea IMemento.internal.id="16384">
+<trimItem IMemento.internal.id="topLeft"/>
+</trimArea>
+<trimArea IMemento.internal.id="131072">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@7a396b72"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.editorss"/>
+</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
@@ -145,11 +330,23 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="XBin.java" tooltip="VirtualScale/src/XBin.java">
+<persistable path="/VirtualScale/src/XBin.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ScalePanel.java" tooltip="VirtualScale/src/ScalePanel.java">
+<persistable path="/VirtualScale/src/ScalePanel.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SidePanel.java" tooltip="VirtualScale/src/SidePanel.java">
+<persistable path="/VirtualScale/src/SidePanel.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AddTermListener.java" tooltip="VirtualScale/src/AddTermListener.java">
+<persistable path="/VirtualScale/src/AddTermListener.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MainApp.java" tooltip="VirtualScale/src/MainApp.java">
 <persistable path="/VirtualScale/src/MainApp.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Applet.java" tooltip="VirtualScale/src/Applet.java">
-<persistable path="/VirtualScale/src/Applet.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SolveForXListener.java" tooltip="VirtualScale/src/SolveForXListener.java">
+<persistable path="/VirtualScale/src/SolveForXListener.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Constant.java" tooltip="VirtualScale/src/Constant.java">
 <persistable path="/VirtualScale/src/Constant.java"/>
@@ -157,11 +354,11 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Term.java" tooltip="VirtualScale/src/Term.java">
 <persistable path="/VirtualScale/src/Term.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="XBin.java" tooltip="VirtualScale/src/XBin.java">
-<persistable path="/VirtualScale/src/XBin.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MenuBar.java" tooltip="VirtualScale/src/MenuBar.java">
+<persistable path="/VirtualScale/src/MenuBar.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ScalePanel.java" tooltip="VirtualScale/src/ScalePanel.java">
-<persistable path="/VirtualScale/src/ScalePanel.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RemoveTermListener.java" tooltip="VirtualScale/src/RemoveTermListener.java">
+<persistable path="/VirtualScale/src/RemoveTermListener.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FloatingTerm.java" tooltip="VirtualScale/src/FloatingTerm.java">
 <persistable path="/VirtualScale/src/FloatingTerm.java"/>
@@ -169,26 +366,11 @@
 <file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Component.class" tooltip="java.awt.Component">
 <persistable org.eclipse.jdt.ui.ClassFileIdentifier="=Test/\/usr\/lib\/jvm\/java-7-openjdk-amd64\/jre\/lib\/rt.jar&lt;java.awt(Component.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PartBin.java" tooltip="VirtualScale/src/PartBin.java">
-<persistable path="/VirtualScale/src/PartBin.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Applet.java" tooltip="VirtualScale/src/Applet.java">
+<persistable path="/VirtualScale/src/Applet.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ScaleHalf.java" tooltip="VirtualScale/src/ScaleHalf.java">
 <persistable path="/VirtualScale/src/ScaleHalf.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MoveTermListener.java" tooltip="VirtualScale/src/MoveTermListener.java">
-<persistable path="/VirtualScale/src/MoveTermListener.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ScalePanel.java" tooltip="VirtualScale2/src/ScalePanel.java">
-<persistable path="/VirtualScale2/src/ScalePanel.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Constant.java" tooltip="VirtualScale2/src/Constant.java">
-<persistable path="/VirtualScale2/src/Constant.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LimitedTextField.java" tooltip="VirtualScale/src/LimitedTextField.java">
-<persistable path="/VirtualScale/src/LimitedTextField.java"/>
-</file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Integer.class" tooltip="java.lang.Integer">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=Test/\/usr\/lib\/jvm\/java-7-openjdk-amd64\/jre\/lib\/rt.jar&lt;java.lang(Integer.class"/>
 </file>
 </mruList>
 </workbench>

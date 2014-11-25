@@ -31,11 +31,6 @@ public class Constant extends Term {
 		g2.fill(circle);
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		termListener.addConstant();
-		termListener.removeTerm(this);
-	}
 
 	public Constant cloneMe(int x, int y) {
 		Constant x1 = new Constant(termListener, x, y);

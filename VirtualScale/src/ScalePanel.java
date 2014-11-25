@@ -94,9 +94,9 @@ public class ScalePanel extends JPanel implements MouseListener,
 		g2.setFont(new Font("Sanserif", Font.PLAIN, 50));
 
 		if (matchesInequality()) {
-			g2.drawString("Correct!", W / 2 - 100, H - 100);
+			g2.drawString("Correct!", center.x - 100, H - 100);
 		} else {
-			g2.drawString("Not Quite!", W / 2 - 100, H - 100);
+			g2.drawString("Not Quite!", center.x - 100, H - 100);
 		}
 	}
 
@@ -160,10 +160,8 @@ public class ScalePanel extends JPanel implements MouseListener,
 				if (inValidDroppingPosition(mX, mY)) {
 					Term t = floatingTerm.cloneMe(mX, center.y - Term.W);
 					t.setSize(Term.W, Term.W);
-
 					add(t);
-
-					if (me.getX() < W / 2) {
+					if (me.getX() < center.x) {
 						leftTerms.add(t);
 					} else {
 						rightTerms.add(t);
@@ -203,6 +201,22 @@ public class ScalePanel extends JPanel implements MouseListener,
 	}
 
 	public void update() {
+
+		for (int i = 0; i < leftTerms.size(); i++) {
+			Term t = leftTerms.get(i);
+			if (t.getX() > center.x) {
+				leftTerms.remove(i);
+				rightTerms.add(t);
+			}
+		}
+		for (int i = 0; i < rightTerms.size(); i++) {
+			Term t = rightTerms.get(i);
+			if (t.getX() < center.x) {
+				rightTerms.remove(i);
+				leftTerms.add(t);
+			}
+		}
+
 		try {
 			if (xVal.getText().contains("/")) {
 				String[] parts = xVal.getText().split("/");

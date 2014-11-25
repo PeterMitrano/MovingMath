@@ -62,12 +62,6 @@ public class XTerm extends Term implements MouseListener {
 
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		termListener.addX();
-		termListener.removeTerm(this);
-	}
-
 	public XTerm cloneMe(int x, int y) {
 		XTerm x1 = new XTerm(termListener, x, y);
 		x1.coefficient = this.coefficient;

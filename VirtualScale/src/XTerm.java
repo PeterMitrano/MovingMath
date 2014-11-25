@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class XTerm extends Term implements MouseListener {
@@ -15,13 +14,13 @@ public class XTerm extends Term implements MouseListener {
 	public static double weight;
 	public double coefficient;
 
-	public XTerm(RemoveTermListener removeTermListener) {
-		super(removeTermListener);
+	public XTerm(TermListener termListener) {
+		super(termListener);
 		setup();
 	}
 
-	public XTerm(RemoveTermListener removeTermListener, int x, int y) {
-		super(removeTermListener, x, y);
+	public XTerm(TermListener termListener, int x, int y) {
+		super(termListener, x, y);
 		setup();
 	}
 
@@ -64,17 +63,13 @@ public class XTerm extends Term implements MouseListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent me) {
-		if (me.getClickCount() == 2) {
-			removeTermListener.removeTerm(this);
-		} else if (me.getClickCount() == 1) {
-			XTerm.weight *= -1;
-			repaint();
-		}
+	public void mouseReleased(MouseEvent e) {
+		termListener.addX();
+		termListener.removeTerm(this);
 	}
 
 	public XTerm cloneMe(int x, int y) {
-		XTerm x1 = new XTerm(removeTermListener, x, y);
+		XTerm x1 = new XTerm(termListener, x, y);
 		x1.coefficient = this.coefficient;
 		return x1;
 	}

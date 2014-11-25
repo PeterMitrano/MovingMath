@@ -1,0 +1,6 @@
+public interface TermListener {
+
+	public void addX();
+
+	public void addConstant();
+}

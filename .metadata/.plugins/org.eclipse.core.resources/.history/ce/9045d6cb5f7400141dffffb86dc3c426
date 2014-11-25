@@ -1,0 +1,10 @@
+public interface TermListener {
+
+	public void addX();
+
+	public void addConstant();
+	
+	public void addConstantAt();
+
+	public void removeTerm(Term t);
+}

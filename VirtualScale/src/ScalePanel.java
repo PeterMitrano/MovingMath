@@ -22,8 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class ScalePanel extends JPanel implements MouseListener,
-		ActionListener, MouseMotionListener, RemoveTermListener,
-		AddTermListener, SolveForXListener {
+		ActionListener, MouseMotionListener, TermListener, SolveForXListener {
 
 	public static boolean solveX;
 
@@ -204,7 +203,6 @@ public class ScalePanel extends JPanel implements MouseListener,
 	}
 
 	public void update() {
-
 		try {
 			if (xVal.getText().contains("/")) {
 				String[] parts = xVal.getText().split("/");
@@ -234,18 +232,18 @@ public class ScalePanel extends JPanel implements MouseListener,
 
 		for (Term t : leftTerms) {
 			if (angle == -25) {
-				t.tiltDown();
+				t.setTiltedDown();
 			} else if (angle == 25) {
-				t.tiltUp();
+				t.setTiltedUp();
 			} else {
 				t.layFlat();
 			}
 		}
 		for (Term t : rightTerms) {
 			if (angle == -25) {
-				t.tiltDown();
+				t.setTiltedDown();
 			} else if (angle == 25) {
-				t.tiltUp();
+				t.setTiltedUp();
 			} else {
 				t.layFlat();
 			}

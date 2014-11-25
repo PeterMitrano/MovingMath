@@ -1,2 +1,8 @@
 1416876756428	Rename type 'XBin'
 1416877006745	Rename field 'edit'
+1416884339572	Rename type 'AddTermListener'
+1416884475445	Rename type 'AddFloatingTermListener'
+1416884496791	Delete element
+1416887049994	Rename method 'rotate'
+1416887235821	Rename method 'tiltDown'
+1416887244465	Rename method 'tiltUp'

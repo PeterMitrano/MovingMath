@@ -1,0 +1,55 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JOptionPane;
+
+public class Constant extends Term {
+
+	public Constant(TermListener termListener) {
+		super(termListener);
+		coefficientField.setText("1");
+		weight = 1;
+	}
+
+	public Constant(TermListener termListener, int x, int y) {
+		super(termListener, x, y);
+		coefficientField.setText("1");
+		weight = 1;
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		if (weight > 0) {
+			g2.setColor(Color.blue);
+		} else if (weight < 0) {
+			g2.setColor(Color.red);
+		} else {
+			g2.setColor(Color.white);
+		}
+		g2.fill(circle);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent me) {
+		if (me.getClickCount() == 2) {
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane
+					.showConfirmDialog(this,
+							"Are you sure you want to delete?", "Delete?",
+							dialogButton);
+			if (dialogResult == 0) {
+				termListener.removeTerm(this);
+			}
+		}
+	}
+
+	public Constant cloneMe(int x, int y) {
+		Constant x1 = new Constant(termListener, x, y);
+		x1.weight = weight;
+		return x1;
+	}
+}

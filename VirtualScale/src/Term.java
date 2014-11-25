@@ -14,15 +14,16 @@ abstract class Term extends JComponent implements MouseListener,
 		MouseMotionListener {
 
 	double weight, rotateDir;
+	private volatile int draggedAtX, draggedAtY;
 	Ellipse2D circle;
 	JTextField coefficientField;
 	Point flatLoc, highLoc, lowLoc;
 	public static final int W = 50;
-	RemoveTermListener removeTermListener;
+	TermListener termListener;
 
-	public Term(RemoveTermListener removeTermListener) {
-		this.removeTermListener = removeTermListener;
-		setLayout(null);
+	public Term(TermListener termListener) {
+		this.termListener = termListener;
+
 		setOpaque(false);
 		coefficientField = new JTextField();
 		coefficientField.setForeground(Color.black);
@@ -42,40 +43,31 @@ abstract class Term extends JComponent implements MouseListener,
 		add(coefficientField);
 	}
 
-	public Term(RemoveTermListener removeTermListener, int x, int y) {
-		this(removeTermListener);
+	public Term(TermListener termListener, int x, int y) {
+		this(termListener);
 		setLocation(x, y);
-
 		flatLoc = new Point(x, y);
-		highLoc = rotate(25);
-		lowLoc = rotate(-25);
+		highLoc = setToAngle(25);
+		lowLoc = setToAngle(-25);
 	}
 
-	private Point rotate(int angle) {
-
-		double theta = Math.toRadians(angle);
-		double px = getLocation().x + circle.getCenterX();
-		double py = getLocation().y + circle.getCenterY();
-		int ox = ScalePanel.center.x;
-		int oy = ScalePanel.center.y;
-
-		int newX = (int) (Math.cos(theta) * (px - ox) - Math.sin(theta)
-				* (py - oy) + ox);
-		int newY = (int) (Math.sin(theta) * (px - ox) + Math.cos(theta)
-				* (py - oy) + oy);
-
-		return new Point(newX - W / 2, newY - W / 2);
+	public void recalculateLoc() {
+		highLoc = setToAngle(25);
+		lowLoc = setToAngle(-25);
 	}
 
-	public void tiltUp() {
+	public void setTiltedUp() {
+		recalculateLoc();
 		setLocation(highLoc);
 	}
 
-	public void tiltDown() {
+	public void setTiltedDown() {
+		recalculateLoc();
 		setLocation(lowLoc);
 	}
 
 	public void layFlat() {
+		recalculateLoc();
 		setLocation(flatLoc);
 	}
 
@@ -93,19 +85,21 @@ abstract class Term extends JComponent implements MouseListener,
 
 	@Override
 	public void mouseDragged(MouseEvent me) {
-		setLocation(me.getX(), me.getY());
+		setLocation(me.getX() - draggedAtX + getLocation().x, me.getY()
+				- draggedAtY + getLocation().y);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent me) {
 		if (me.getClickCount() == 2) {
+			System.out.println("DELETING");
 			int dialogButton = JOptionPane.YES_NO_OPTION;
 			int dialogResult = JOptionPane
 					.showConfirmDialog(this,
 							"Are you sure you want to delete?", "Delete?",
 							dialogButton);
 			if (dialogResult == 0) {
-				removeTermListener.removeTerm(this);
+				termListener.removeTerm(this);
 			}
 		}
 	}
@@ -120,14 +114,26 @@ abstract class Term extends JComponent implements MouseListener,
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
+		draggedAtX = e.getX();
+		draggedAtY = e.getY();
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 	}
 
+	private Point setToAngle(int angle) {
+		double theta = Math.toRadians(angle);
+		double px = flatLoc.x + circle.getCenterX();
+		double py = flatLoc.y + circle.getCenterY();
+		int ox = ScalePanel.center.x;
+		int oy = ScalePanel.center.y;
+
+		int newX = (int) (Math.cos(theta) * (px - ox) - Math.sin(theta)
+				* (py - oy) + ox);
+		int newY = (int) (Math.sin(theta) * (px - ox) + Math.cos(theta)
+				* (py - oy) + oy);
+
+		return new Point(newX - W / 2, newY - W / 2);
+	}
 }

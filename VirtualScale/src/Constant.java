@@ -5,14 +5,14 @@ import java.awt.event.MouseEvent;
 
 public class Constant extends Term {
 
-	public Constant(RemoveTermListener removeTermListener) {
-		super(removeTermListener);
+	public Constant(TermListener termListener) {
+		super(termListener);
 		coefficientField.setText("1");
 		weight = 1;
 	}
 
-	public Constant(RemoveTermListener removeTermListener, int x, int y) {
-		super(removeTermListener, x, y);
+	public Constant(TermListener termListener, int x, int y) {
+		super(termListener, x, y);
 		coefficientField.setText("1");
 		weight = 1;
 	}
@@ -31,9 +31,16 @@ public class Constant extends Term {
 		g2.fill(circle);
 	}
 
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		termListener.addConstant();
+		termListener.removeTerm(this);
+	}
+
 	public Constant cloneMe(int x, int y) {
-		Constant x1 = new Constant(removeTermListener, x, y);
+		Constant x1 = new Constant(termListener, x, y);
 		x1.weight = weight;
 		return x1;
 	}
+
 }

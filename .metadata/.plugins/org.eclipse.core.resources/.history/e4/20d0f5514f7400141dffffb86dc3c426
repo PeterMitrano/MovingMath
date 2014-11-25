@@ -1,0 +1,47 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+public class SidePanel extends JPanel implements ActionListener {
+
+	JButton addXTerm, addConstantTerm, solveForX;
+	AddFloatingTermListener apl;
+	SolveForXListener sfxl;
+
+	public SidePanel(AddFloatingTermListener apl, SolveForXListener sfxl) {
+		this.apl = apl;
+		this.sfxl = sfxl;
+		setBackground(Color.lightGray);
+		setPreferredSize(new Dimension(220, 0)); // height doesn't matter here
+
+		addXTerm = new JButton("Add New X Term");
+		addConstantTerm = new JButton("Add New Constant Term");
+		solveForX = new JButton("Auto-solve X");
+
+		solveForX.addActionListener(this);
+		addXTerm.addActionListener(this);
+		addConstantTerm.addActionListener(this);
+
+		add(addXTerm);
+		add(addConstantTerm);
+		add(solveForX);
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		if (ae.getSource() == addXTerm) {
+			apl.addX();
+		} else if (ae.getSource() == addConstantTerm) {
+			apl.addConstant();
+		} else if (ae.getSource() == solveForX) {
+			sfxl.solve();
+		}
+
+	}
+
+}

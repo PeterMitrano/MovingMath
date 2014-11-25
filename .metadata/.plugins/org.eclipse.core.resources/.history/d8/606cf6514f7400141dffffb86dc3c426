@@ -1,0 +1,6 @@
+public interface AddFloatingTermListener {
+
+	public void addX();
+
+	public void addConstant();
+}

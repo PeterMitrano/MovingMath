@@ -9,10 +9,10 @@ import javax.swing.JPanel;
 public class SidePanel extends JPanel implements ActionListener {
 
 	JButton addXTerm, addConstantTerm, solveForX;
-	AddTermListener apl;
+	TermListener apl;
 	SolveForXListener sfxl;
 
-	public SidePanel(AddTermListener apl, SolveForXListener sfxl) {
+	public SidePanel(TermListener apl, SolveForXListener sfxl) {
 		this.apl = apl;
 		this.sfxl = sfxl;
 		setBackground(Color.lightGray);

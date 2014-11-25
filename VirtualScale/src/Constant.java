@@ -7,13 +7,13 @@ public class Constant extends Term {
 
 	public Constant(RemoveTermListener removeTermListener) {
 		super(removeTermListener);
-		edit.setText("1");
+		coefficientField.setText("1");
 		weight = 1;
 	}
 
 	public Constant(RemoveTermListener removeTermListener, int x, int y) {
 		super(removeTermListener, x, y);
-		edit.setText("1");
+		coefficientField.setText("1");
 		weight = 1;
 	}
 

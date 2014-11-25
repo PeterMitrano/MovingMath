@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
@@ -14,6 +15,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,20 +37,20 @@ public class ScalePanel extends JPanel implements MouseListener,
 	public static int angle;
 	public static Point center;
 	private Rectangle bar;
-	private Rectangle trash;
+	private Image trashImage;
+	private int trashX = 50, trashY = 450, trashW = 100;
+	private Color background = new Color(20, 20, 40);
 
 	public ScalePanel() {
 		setLayout(null);
 		setPreferredSize(new Dimension(W, H));
-		setBackground(new Color(20, 20, 140));
+		setBackground(background);
 
 		leftTerms = new ArrayList<Term>();
 		rightTerms = new ArrayList<Term>();
 
 		bar = new Rectangle(600, 20);
 		center = new Point(W / 2, H / 2);
-		trash = new Rectangle();
-		trash.setBounds(650, 30, 120, 120);
 
 		update = new JButton("Update");
 		update.setBounds(5, 10, 90, 20);
@@ -59,6 +61,8 @@ public class ScalePanel extends JPanel implements MouseListener,
 		xValLabel.setBackground(Color.white);
 		xVal = new JTextField("0", 4);
 		xVal.setBounds(130, 10, 80, 20);
+
+		trashImage = new ImageIcon("resources/trash.png").getImage();
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
@@ -76,20 +80,20 @@ public class ScalePanel extends JPanel implements MouseListener,
 		// BAR
 		bar.setBounds(center.x - bar.width / 2, center.y - bar.height / 2, 600,
 				20);
+		g2.setColor(Color.white);
 		g2.fill(rotate(bar));
 
 		// CENTER CIRCLE
-		g2.setColor(Color.red);
+		g2.setColor(background);
 		g2.fillOval(center.x - 5, center.y - 5, 10, 10);
 
 		// TRASH SQUARE & TEXT
-		g2.fill(trash);
-		g2.setColor(Color.black);
-		g2.drawString("Discard", 685, 20);
+		g2.drawImage(trashImage, trashX, trashY, trashW, trashW, null);
 
 		// TRUE or FALSE indicator
 		g2.setColor(Color.WHITE);
 		g2.setFont(new Font("Sanserif", Font.PLAIN, 50));
+
 		if (matchesInequality()) {
 			g2.drawString("Correct!", W / 2 - 100, H - 100);
 		} else {
@@ -123,15 +127,15 @@ public class ScalePanel extends JPanel implements MouseListener,
 
 	@Override
 	public void addX() {
-		floatingTerm = new XBin(this);
-		floatingTerm.edit.setEditable(false);
+		floatingTerm = new XTerm(this);
+		floatingTerm.coefficientField.setEditable(false);
 		add(floatingTerm);
 	}
 
 	@Override
 	public void addConstant() {
 		floatingTerm = new Constant(this);
-		floatingTerm.edit.setEditable(false);
+		floatingTerm.coefficientField.setEditable(false);
 		add(floatingTerm);
 	}
 
@@ -150,10 +154,12 @@ public class ScalePanel extends JPanel implements MouseListener,
 
 	@Override
 	public void mouseClicked(MouseEvent me) {
+		int mX = me.getX() + Term.W / 2;
+		int mY = me.getY() + Term.W / 2;
 		if (floatingTerm != null) {
-			if (!overTrash(me.getX(), me.getY())) {
-				if (inValidDroppingPosition(me.getX(), me.getY())) {
-					Term t = floatingTerm.cloneMe(me.getX(), center.y - Term.W);
+			if (!overTrash(mX, mY)) {
+				if (inValidDroppingPosition(mX, mY)) {
+					Term t = floatingTerm.cloneMe(mX, center.y - Term.W);
 					t.setSize(Term.W, Term.W);
 
 					add(t);
@@ -200,7 +206,18 @@ public class ScalePanel extends JPanel implements MouseListener,
 	public void update() {
 
 		try {
-			XBin.weight = Integer.parseInt(xVal.getText());
+			if (xVal.getText().contains("/")) {
+				String[] parts = xVal.getText().split("/");
+				double num = Integer.parseInt(parts[0]);
+				double denom = Integer.parseInt(parts[1]);
+				System.out.println("weight is " + num / denom);
+				XTerm.weight = num / denom;
+			} else if (xVal.getText().equals("")) {
+				XTerm.weight = 0;
+			} else {
+				XTerm.weight = Double.parseDouble(xVal.getText());
+			}
+			xVal.setText(XTerm.weight + "");
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(this, "Fix your X input");
 		}
@@ -238,11 +255,13 @@ public class ScalePanel extends JPanel implements MouseListener,
 	}
 
 	public boolean inValidDroppingPosition(int x, int y) {
-		return x < bar.getWidth() + bar.getX() && y < bar.getY();
+		return x < bar.getWidth() - Term.W + bar.getX()
+				&& x > bar.getX() + Term.W / 2 && y < bar.getY() - Term.W;
 	}
 
 	public boolean overTrash(int x, int y) {
-		return trash.contains(x, y);
+		return x > trashX && x < trashX + trashW && y > trashY
+				&& y < trashY + trashW;
 	}
 
 	@Override
@@ -265,32 +284,30 @@ public class ScalePanel extends JPanel implements MouseListener,
 
 	@Override
 	public void solve() {
-		int A = 0, B = 0, C = 0, D = 0;
+		double A = 0, B = 0, C = 0, D = 0;
 		updateRightWeights();
 		updateLeftWeights();
 		for (Term t : leftTerms) {
-			if (t instanceof XBin) {
-				A += ((XBin) t).coefficient;
+			if (t instanceof XTerm) {
+				A += ((XTerm) t).coefficient;
 			} else if (t instanceof Constant) {
 				C += t.weight;
 			}
 		}
 
 		for (Term t : rightTerms) {
-			if (t instanceof XBin) {
-				B += ((XBin) t).coefficient;
+			if (t instanceof XTerm) {
+				B += ((XTerm) t).coefficient;
 			} else if (t instanceof Constant) {
 				D += t.weight;
 			}
 		}
 		try {
-			int x = (int) ((D - C) / (A - B));
+			double x = (D - C) / (A - B);
 			xVal.setText(x + "");
 		} catch (ArithmeticException ae) {
 
-			JOptionPane
-					.showMessageDialog(this,
-							"You need to havea term on each side before auto-solving for X!");
+			JOptionPane.showMessageDialog(this, "Sorry! I can't solve that!");
 			xVal.setText("0");
 		}
 		update();

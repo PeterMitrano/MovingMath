@@ -16,9 +16,9 @@ public class SidePanel extends JPanel implements ActionListener {
 		this.apl = apl;
 		this.sfxl = sfxl;
 		setBackground(Color.lightGray);
-		setPreferredSize(new Dimension(200, 0)); // height doesn't matter here
+		setPreferredSize(new Dimension(220, 0)); // height doesn't matter here
 
-		addXTerm = new JButton("Add X Bin");
+		addXTerm = new JButton("Add New X Term");
 		addConstantTerm = new JButton("Add New Constant Term");
 		solveForX = new JButton("Auto-solve X");
 

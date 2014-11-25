@@ -13,9 +13,9 @@ import javax.swing.JTextField;
 abstract class Term extends JComponent implements MouseListener,
 		MouseMotionListener {
 
-	int weight, rotateDir;
+	double weight, rotateDir;
 	Ellipse2D circle;
-	JTextField edit;
+	JTextField coefficientField;
 	Point flatLoc, highLoc, lowLoc;
 	public static final int W = 50;
 	RemoveTermListener removeTermListener;
@@ -24,22 +24,22 @@ abstract class Term extends JComponent implements MouseListener,
 		this.removeTermListener = removeTermListener;
 		setLayout(null);
 		setOpaque(false);
-		edit = new JTextField();
-		edit.setForeground(Color.black);
-		edit.setOpaque(false);
-		edit.setBorder(null);
-		edit.setDocument(new LengthRestrictedDocument(2));
-		edit.setHorizontalAlignment(JTextField.CENTER);
-		edit.setFont(new Font("SansSerif", Font.BOLD, 15));
-		edit.setSize(W, W);
-		edit.setVisible(true);
-		edit.addMouseListener(this);
-		edit.addMouseMotionListener(this);
+		coefficientField = new JTextField();
+		coefficientField.setForeground(Color.black);
+		coefficientField.setOpaque(false);
+		coefficientField.setBorder(null);
+		coefficientField.setDocument(new LengthRestrictedDocument(2));
+		coefficientField.setHorizontalAlignment(JTextField.CENTER);
+		coefficientField.setFont(new Font("SansSerif", Font.BOLD, 13));
+		coefficientField.setSize(W, W);
+		coefficientField.setVisible(true);
+		coefficientField.addMouseListener(this);
+		coefficientField.addMouseMotionListener(this);
 
 		circle = new Ellipse2D.Double();
 		circle.setFrame(0, 0, W, W);
 
-		add(edit);
+		add(coefficientField);
 	}
 
 	public Term(RemoveTermListener removeTermListener, int x, int y) {
@@ -79,12 +79,12 @@ abstract class Term extends JComponent implements MouseListener,
 		setLocation(flatLoc);
 	}
 
-	public int updateWeight() {
+	public double updateWeight() {
 		try {
-			String val = edit.getText().toString();
-			weight = Integer.parseInt(val);
+			String val = coefficientField.getText().toString();
+			weight = Double.parseDouble(val);
 		} catch (NumberFormatException nfe) {
-			JOptionPane.showMessageDialog(this, "Fix your input!");
+			JOptionPane.showMessageDialog(this, "Fix your Term input!");
 		}
 		return weight;
 	}

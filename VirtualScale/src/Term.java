@@ -14,7 +14,8 @@ abstract class Term extends JComponent implements MouseListener,
 		MouseMotionListener {
 
 	double weight, rotateDir;
-	private volatile int draggedAtX, draggedAtY;
+	private int draggedAtX, draggedAtY;
+	private double weightOnDrag;
 	Ellipse2D circle;
 	JTextField coefficientField;
 	Point flatLoc, highLoc, lowLoc;
@@ -91,16 +92,39 @@ abstract class Term extends JComponent implements MouseListener,
 
 	@Override
 	public void mouseDragged(MouseEvent me) {
+
 		int dx = me.getX() - draggedAtX;
 		int dy = me.getY() - draggedAtY;
 
+		int currentX = dx + getLocation().x;
+		int currentY = dy + getLocation().y;
+
 		// if you cross the middle point flip the sign
-		if (crossMidpoint(me)) {
-			flipSign();
+		if (crossMidpoint(currentX, currentY)) {
+			System.out.println("FLIP!");
+			if (positive()) {
+				if (!coefficientField.getText().startsWith("-")) {
+					coefficientField.setText("-" + coefficientField.getText());
+				}
+			} else if (negative()) {
+				if (coefficientField.getText().startsWith("-")) {
+					coefficientField.setText(coefficientField.getText()
+							.substring(1));
+				}
+			}
 		}
 
-		setLocation(dx + getLocation().x + W / 4, dy + getLocation().y + W / 4);
+		// delete if its over the trash
+		if (ScalePanel.overTrash(me.getX(), me.getY())) {
+			termListener.removeTerm(this);
+		} else {
+			setLocation(currentX + W / 4, currentY + W / 4);
+		}
 	}
+
+	public abstract boolean positive();
+
+	public abstract boolean negative();
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
@@ -149,13 +173,15 @@ abstract class Term extends JComponent implements MouseListener,
 		return new Point(newX - W / 2, newY - W / 2);
 	}
 
-	private boolean crossMidpoint(MouseEvent me) {
-		return me.getX() > ScalePanel.center.x
-				&& draggedAtX > ScalePanel.center.x
-				|| me.getX() > ScalePanel.center.x
-				&& draggedAtX < ScalePanel.center.x
-				&& me.getY() > ScalePanel.center.y;
+	private boolean crossMidpoint(int currentX, int currentY) {
+		if (currentY < ScalePanel.center.y) {
+			if (draggedAtX > ScalePanel.center.x) {
+				return currentX < ScalePanel.center.x;
+			} else {
+				return currentX > ScalePanel.center.x;
+			}
+		}
+		return false;
 	}
 
-	public abstract void flipSign();
 }

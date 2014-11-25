@@ -36,9 +36,15 @@ public class Constant extends Term {
 		return x1;
 	}
 
+
 	@Override
-	public void flipSign() {
-		weight *= -1;
+	public boolean positive() {
+		return weight> 0;
+	}
+
+	@Override
+	public boolean negative() {
+		return weight< 0;
 	}
 
 }

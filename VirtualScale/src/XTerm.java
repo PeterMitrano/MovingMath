@@ -27,7 +27,6 @@ public class XTerm extends Term implements MouseListener {
 		coefficientField.setText("1");
 		coefficientField.setHorizontalAlignment(JTextField.LEFT);
 		coefficientField.setLocation(5, 0);
-		coefficientField.setSize(W, W);
 		xLabel = new JLabel("X");
 		xLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
 		xLabel.setHorizontalAlignment(JTextField.CENTER);
@@ -57,7 +56,6 @@ public class XTerm extends Term implements MouseListener {
 		XTerm.weight = Double.parseDouble(val);
 		coefficient = Integer.parseInt(coefficientField.getText());
 		return XTerm.weight * coefficient;
-
 	}
 
 	public XTerm cloneMe(int x, int y) {
@@ -67,7 +65,12 @@ public class XTerm extends Term implements MouseListener {
 	}
 
 	@Override
-	public void flipSign() {
-		coefficient *= -1;
+	public boolean positive() {
+		return coefficient > 0;
+	}
+
+	@Override
+	public boolean negative() {
+		return coefficient < 0;
 	}
 }

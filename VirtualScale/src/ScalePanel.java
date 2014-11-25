@@ -37,7 +37,7 @@ public class ScalePanel extends JPanel implements MouseListener,
 	public static Point center;
 	private Rectangle bar;
 	private Image trashImage;
-	private int trashX = 50, trashY = 450, trashW = 100;
+	private static int trashX = 50, trashY = 450, trashW = 100;
 	private Color background = new Color(20, 20, 40);
 
 	public ScalePanel() {
@@ -271,7 +271,7 @@ public class ScalePanel extends JPanel implements MouseListener,
 				&& x > bar.getX() + Term.W / 2 && y < bar.getY() - Term.W;
 	}
 
-	public boolean overTrash(int x, int y) {
+	public static boolean overTrash(int x, int y) {
 		return x > trashX && x < trashX + trashW && y > trashY
 				&& y < trashY + trashW;
 	}

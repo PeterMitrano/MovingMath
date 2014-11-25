@@ -27,7 +27,7 @@ public class XTerm extends Term implements MouseListener {
 		coefficientField.setText("1");
 		coefficientField.setHorizontalAlignment(JTextField.LEFT);
 		coefficientField.setLocation(5, 0);
-		coefficientField.setSize(W, W);
+		coefficientField.setSize(40, W);
 		xLabel = new JLabel("X");
 		xLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
 		xLabel.setHorizontalAlignment(JTextField.CENTER);

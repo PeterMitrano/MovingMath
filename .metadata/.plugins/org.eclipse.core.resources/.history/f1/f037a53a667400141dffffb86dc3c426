@@ -157,5 +157,5 @@ abstract class Term extends JComponent implements MouseListener,
 				&& me.getY() > ScalePanel.center.y;
 	}
 
-	public abstract void flipSign();
+	privateabstract void flipSign();
 }

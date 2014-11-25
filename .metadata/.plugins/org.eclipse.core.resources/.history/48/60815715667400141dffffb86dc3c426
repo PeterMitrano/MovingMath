@@ -95,8 +95,8 @@ abstract class Term extends JComponent implements MouseListener,
 		int dy = me.getY() - draggedAtY;
 
 		// if you cross the middle point flip the sign
-		if (crossMidpoint(me)) {
-			flipSign();
+		if (crossMidpoint()) {
+
 		}
 
 		setLocation(dx + getLocation().x + W / 4, dy + getLocation().y + W / 4);
@@ -149,13 +149,10 @@ abstract class Term extends JComponent implements MouseListener,
 		return new Point(newX - W / 2, newY - W / 2);
 	}
 
-	private boolean crossMidpoint(MouseEvent me) {
-		return me.getX() > ScalePanel.center.x
-				&& draggedAtX > ScalePanel.center.x
+	private boolean crossMidpoint(MouseEvent me){
+		return me.getX() > ScalePanel.center.x && draggedAtX > ScalePanel.center.x
 				|| me.getX() > ScalePanel.center.x
 				&& draggedAtX < ScalePanel.center.x
-				&& me.getY() > ScalePanel.center.y;
+				&& me.getY() > ScalePanel.center.y
 	}
-
-	public abstract void flipSign();
 }

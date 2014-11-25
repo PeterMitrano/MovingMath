@@ -149,13 +149,14 @@ abstract class Term extends JComponent implements MouseListener,
 		return new Point(newX - W / 2, newY - W / 2);
 	}
 
-	private boolean crossMidpoint(MouseEvent me) {
-		return me.getX() > ScalePanel.center.x
-				&& draggedAtX > ScalePanel.center.x
+	private boolean crossMidpoint(MouseEvent me){
+		return me.getX() > ScalePanel.center.x && draggedAtX > ScalePanel.center.x
 				|| me.getX() > ScalePanel.center.x
 				&& draggedAtX < ScalePanel.center.x
 				&& me.getY() > ScalePanel.center.y;
 	}
-
-	public abstract void flipSign();
+	
+abstract	private void flipSign() {
+		
+	}
 }

@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -86,6 +87,32 @@ public class ScalePanel extends JPanel implements MouseListener,
 		g2.setColor(Color.black);
 		g2.drawString("Discard", 685, 20);
 
+		// TRUE or FALSE indicator
+		g2.setColor(Color.WHITE);
+		g2.setFont(new Font("Sanserif", Font.PLAIN, 50));
+		if (matchesInequality()) {
+			g2.drawString("Correct!", W / 2 - 100, H - 100);
+		} else {
+			g2.drawString("Not Quite!", W / 2 - 100, H - 100);
+		}
+	}
+
+	public boolean matchesInequality() {
+		if (MenuBar.exampleOutput.getText().contains(">")) {
+			if (MenuBar.exampleOutput.getText().contains("=")) {
+				return angle < 0 || angle == 0;
+			} else {
+				return angle < 0;
+			}
+		} else if (MenuBar.exampleOutput.getText().contains("<")) {
+			if (MenuBar.exampleOutput.getText().contains("=")) {
+				return angle > 0 || angle == 0;
+			} else {
+				return angle > 0;
+			}
+		} else {
+			return angle == 0;
+		}
 	}
 
 	public Shape rotate(Rectangle r) {
@@ -110,7 +137,6 @@ public class ScalePanel extends JPanel implements MouseListener,
 
 	@Override
 	public void mouseDragged(MouseEvent me) {
-
 	}
 
 	@Override
@@ -119,7 +145,7 @@ public class ScalePanel extends JPanel implements MouseListener,
 			floatingTerm
 					.setBounds(me.getX() + 5, me.getY() + 5, Term.W, Term.W);
 		}
-		repaint();
+		update();
 	}
 
 	@Override

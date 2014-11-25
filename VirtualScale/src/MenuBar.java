@@ -6,7 +6,7 @@ import javax.swing.JTextField;
 
 public class MenuBar extends JPanel {
 
-	JTextField exampleOutput;
+	static JTextField exampleOutput;
 
 	public MenuBar() {
 		exampleOutput = new JTextField("Type equation here", 20);

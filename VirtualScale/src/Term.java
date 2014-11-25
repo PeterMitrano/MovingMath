@@ -3,13 +3,15 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-abstract class Term extends JComponent implements MouseListener {
+abstract class Term extends JComponent implements MouseListener,
+		MouseMotionListener {
 
 	int weight, rotateDir;
 	Ellipse2D circle;
@@ -32,6 +34,7 @@ abstract class Term extends JComponent implements MouseListener {
 		edit.setSize(W, W);
 		edit.setVisible(true);
 		edit.addMouseListener(this);
+		edit.addMouseMotionListener(this);
 
 		circle = new Ellipse2D.Double();
 		circle.setFrame(0, 0, W, W);
@@ -89,33 +92,42 @@ abstract class Term extends JComponent implements MouseListener {
 	public abstract Term cloneMe(int x, int y);
 
 	@Override
+	public void mouseDragged(MouseEvent me) {
+		setLocation(me.getX(), me.getY());
+	}
+
+	@Override
 	public void mouseClicked(MouseEvent me) {
 		if (me.getClickCount() == 2) {
-			removeTermListener.removeTerm(this);
-		} else if (me.getClickCount() == 1) {
-			weight *= -1;
-			if (edit.getText().charAt(0) == '-') {
-				edit.setText(edit.getText().substring(1));
-			} else {
-				edit.setText("-" + edit.getText());
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane
+					.showConfirmDialog(this,
+							"Are you sure you want to delete?", "Delete?",
+							dialogButton);
+			if (dialogResult == 0) {
+				removeTermListener.removeTerm(this);
 			}
-			repaint();
 		}
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent me) {
+	public void mouseEntered(MouseEvent e) {
 	}
 
 	@Override
-	public void mouseExited(MouseEvent me) {
+	public void mouseExited(MouseEvent e) {
 	}
 
 	@Override
-	public void mousePressed(MouseEvent me) {
+	public void mousePressed(MouseEvent e) {
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent me) {
+	public void mouseReleased(MouseEvent e) {
 	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+	}
+
 }

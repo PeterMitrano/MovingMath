@@ -25,7 +25,7 @@ public class Constant extends Term {
 		} else if (weight < 0) {
 			g2.setColor(Color.red);
 		} else {
-			g2.setColor(Color.white);
+			g2.setColor(Color.lightGray);
 		}
 		g2.fill(circle);
 	}

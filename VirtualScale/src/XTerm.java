@@ -26,11 +26,12 @@ public class XTerm extends Term implements MouseListener {
 	public void setup() {
 		coefficientField.setText("1");
 		coefficientField.setHorizontalAlignment(JTextField.LEFT);
-		coefficientField.setLocation(5, 0);
+		coefficientField.setLocation(8, 0);
 		xLabel = new JLabel("X");
 		xLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+		xLabel.setForeground(Color.black);
 		xLabel.setHorizontalAlignment(JTextField.CENTER);
-		xLabel.setBounds(W - 35, 0, 20, W);
+		xLabel.setBounds(W - 25, 0, 20, W);
 		add(xLabel);
 	}
 
@@ -40,7 +41,7 @@ public class XTerm extends Term implements MouseListener {
 		Graphics2D g2 = (Graphics2D) g;
 
 		if (coefficient == 0) {
-			g2.setColor(Color.white);
+			g2.setColor(Color.lightGray);
 		} else if (coefficient < 0) {
 			g2.setColor(Color.red);
 		} else {

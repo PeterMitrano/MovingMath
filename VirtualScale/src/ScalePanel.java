@@ -89,6 +89,10 @@ public class ScalePanel extends JPanel implements MouseListener,
 		// TRASH SQUARE & TEXT
 		g2.drawImage(trashImage, trashX, trashY, trashW, trashW, null);
 
+		// DRAW CENTER LINE
+		g2.setColor(Color.gray);
+		g2.drawLine(center.x, 0, center.x, center.y);
+
 		// TRUE or FALSE indicator
 		g2.setColor(Color.WHITE);
 		g2.setFont(new Font("Sanserif", Font.PLAIN, 50));

@@ -6,3 +6,5 @@
 1416887049994	Rename method 'rotate'
 1416887235821	Rename method 'tiltDown'
 1416887244465	Rename method 'tiltUp'
+1416984976144	Rename field 'draggedAtX'
+1416984985562	Rename field 'draggedAtY'

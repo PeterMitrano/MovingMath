@@ -14,8 +14,8 @@ abstract class Term extends JComponent implements MouseListener,
 		MouseMotionListener {
 
 	double weight, rotateDir;
-	private int draggedAtX, draggedAtY;
-	private double weightOnDrag;
+	private int dxOnPress, dyOnPress;
+	private Point locOnPress;
 	Ellipse2D circle;
 	JTextField coefficientField;
 	Point flatLoc, highLoc, lowLoc;
@@ -38,6 +38,7 @@ abstract class Term extends JComponent implements MouseListener,
 		coefficientField.addMouseListener(this);
 		coefficientField.addMouseMotionListener(this);
 
+		locOnPress = new Point();
 		circle = new Ellipse2D.Double();
 		circle.setFrame(0, 0, W, W);
 
@@ -86,22 +87,23 @@ abstract class Term extends JComponent implements MouseListener,
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		draggedAtX = e.getX();
-		draggedAtY = e.getY();
+		System.out.println("MOUSE PRESS AT " + e.getX() + "," + e.getY());
+		dxOnPress = e.getX();
+		dyOnPress = e.getY();
+		locOnPress = getLocation();
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent me) {
 
-		int dx = me.getX() - draggedAtX;
-		int dy = me.getY() - draggedAtY;
+		int dx = me.getX() - dxOnPress;
+		int dy = me.getY() - dyOnPress;
 
 		int currentX = dx + getLocation().x;
 		int currentY = dy + getLocation().y;
 
 		// if you cross the middle point flip the sign
-		if (crossMidpoint(currentX, currentY)) {
-			System.out.println("FLIP!");
+		if (crossMidpoint(locOnPress.x, currentX)) {
 			if (positive()) {
 				if (!coefficientField.getText().startsWith("-")) {
 					coefficientField.setText("-" + coefficientField.getText());
@@ -112,13 +114,24 @@ abstract class Term extends JComponent implements MouseListener,
 							.substring(1));
 				}
 			}
+		} else {
+			if (positive()) {
+				if (coefficientField.getText().startsWith("-")) {
+					coefficientField.setText(coefficientField.getText()
+							.substring(1));
+				}
+			} else if (negative()) {
+				if (!coefficientField.getText().startsWith("-")) {
+					coefficientField.setText("-" + coefficientField.getText());
+				}
+			}
 		}
 
 		// delete if its over the trash
 		if (ScalePanel.overTrash(me.getX(), me.getY())) {
 			termListener.removeTerm(this);
 		} else {
-			setLocation(currentX + W / 4, currentY + W / 4);
+			setLocation(currentX, currentY);
 		}
 	}
 
@@ -128,8 +141,9 @@ abstract class Term extends JComponent implements MouseListener,
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		flatLoc = new Point((int) (getLocation().getX() + me.getX()),
+		flatLoc = new Point((int) (getLocation().getX() + me.getX()) - W / 3,
 				ScalePanel.center.y - Term.W);
+		termListener.update();
 	}
 
 	@Override
@@ -173,13 +187,13 @@ abstract class Term extends JComponent implements MouseListener,
 		return new Point(newX - W / 2, newY - W / 2);
 	}
 
-	private boolean crossMidpoint(int currentX, int currentY) {
-		if (currentY < ScalePanel.center.y) {
-			if (draggedAtX > ScalePanel.center.x) {
-				return currentX < ScalePanel.center.x;
-			} else {
-				return currentX > ScalePanel.center.x;
-			}
+	private boolean crossMidpoint(int startX, int currentX) {
+		System.out.println(startX + " " + ScalePanel.center.x);
+		if (startX > ScalePanel.center.x) {
+			System.out.println("FLIP");
+			return currentX < ScalePanel.center.x;
+		} else if (startX < ScalePanel.center.x) {
+			return currentX > ScalePanel.center.x;
 		}
 		return false;
 	}

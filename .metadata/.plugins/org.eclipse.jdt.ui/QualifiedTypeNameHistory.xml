@@ -27,7 +27,6 @@
 <fullyQualifiedTypeName name="LengthRestrictedDocument"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseListener"/>
 <fullyQualifiedTypeName name="java.awt.geom.Ellipse2D.Double"/>
-<fullyQualifiedTypeName name="ScalePanel"/>
 <fullyQualifiedTypeName name="javax.swing.JComponent"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
@@ -35,4 +34,8 @@
 <fullyQualifiedTypeName name="FloatingTerm"/>
 <fullyQualifiedTypeName name="java.awt.Font"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseMotionListener"/>
+<fullyQualifiedTypeName name="AddFloatingTermListener"/>
+<fullyQualifiedTypeName name="ScalePanel"/>
+<fullyQualifiedTypeName name="XTerm"/>
+<fullyQualifiedTypeName name="javax.swing.SwingUtilities"/>
 </qualifiedTypeNameHistroy>

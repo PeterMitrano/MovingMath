@@ -274,7 +274,7 @@ public class ScalePanel extends JPanel implements MouseListener,
 		return x < bar.getWidth() - Term.W + bar.getX()
 				&& x > bar.getX() + Term.W / 2 && y < bar.getY() - Term.W
 				&& !overTrash(x, y)
-				&& Math.abs(center.x - (x + Term.W / 2)) > Term.W;
+				&& Math.abs(center.x - (x - Term.W)) > Term.W;
 	}
 
 	private static boolean overTrash(int x, int y) {

@@ -128,7 +128,7 @@ abstract class Term extends JComponent implements MouseListener,
 		}
 
 		// delete if its over the trash
-		if (ScalePanel.inValidDroppingPosition(currentX, currentY)) {
+		if (ScalePanel.inValidDroppingPosition(currentX,currentY)) {
 			termListener.removeTerm(this);
 		} else {
 			setLocation(currentX, currentY);

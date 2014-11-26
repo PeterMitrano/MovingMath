@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="Movingmath : GPS project">
-
+    <script src="CancasMain.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
     <title>Moving Math</title>
@@ -37,6 +37,15 @@
         <applet code="MainApp.class" width=800 height=600/>
       -->
       </section>
+      <center>    
+        <div id = "program">  
+          <button type="button">Click Me!</button>
+          <button type="button">Click Me!</button>
+          <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+        </div>
+      </center>
+    </canvas>
+
     </div>
 
     <!-- FOOTER  -->
@@ -47,4 +56,16 @@
       </footer>
     </div>
   </body>
+
+  <script>
+    var canvas = document.getElementById("myCanvas");
+    var context = canvas.getContext("2d");
+
+
+
+    context.fillStyle = "#FF0000";
+    context.fillRect(0,0,150,75);
+  </script>
+
+
 </html>

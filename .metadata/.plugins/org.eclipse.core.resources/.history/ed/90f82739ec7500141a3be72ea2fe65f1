@@ -1,0 +1,18 @@
+import java.applet.Applet;
+import java.awt.Graphics;
+
+public class MainApplet extends Applet {
+
+	@Override
+	public void start() {
+		setSize(200, 50);
+		MainApp.main(null);
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		g.drawString("Application will launch in a new window!", 10, 10);
+
+	}
+
+}

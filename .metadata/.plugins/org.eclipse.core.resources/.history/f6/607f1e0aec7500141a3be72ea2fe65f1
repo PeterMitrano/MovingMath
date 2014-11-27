@@ -1,0 +1,9 @@
+import java.applet.Applet;
+
+public class MainApplet extends Applet {
+	
+	public void start(){
+		MainApp.main();
+	}
+
+}

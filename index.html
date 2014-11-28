@@ -42,15 +42,16 @@
             <div id="more_buttons">
               <button id="update" type="button" onclick="update(event)">Update</button>
               <div id="x_label">X=
-                <span id="x_val">0.0</span>
+                  <input id="x_val" value="0.0" maxlength="5" />
               </div>
             </div>
           </div>
 
           <div id="canvas_container">
-
-            <canvas id="my_canvas" width="800" height="600"/>
-            
+            <canvas id="my_canvas" width="800" height="600"></canvas>
+            <div id="new_term_rack"></div>
+            <div id="sides"></div>
+            <img src="./images/trash.png" width="80" id="trash"/>
           </div>
         </div>
       </center>

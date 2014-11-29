@@ -8,6 +8,7 @@ var angle = 0;
 var TERM_ID = 0;
 var A = 0,B = 0,C = 0,D = 0;
 var xVal;
+var termRack;
 var sides;
 var leftSide;
 var rightSide;
@@ -23,7 +24,21 @@ function init(){
 	context = canvas.getContext("2d");
 
 	var leftSideHeight = 50;
-	var termRackHeight = document.getElementById("new_term_rack").clientHeight;
+	termRack = document.getElementById("new_term_rack");
+	var termRackHeight = termRack.clientHeight;
+	termRack.ondragover = function(event) {
+		console.log("ondragover");
+	    event.preventDefault();
+	};
+	termRack.ondrop = function(event) {
+		console.log("ondrop");
+	    if (event.target.id == "new_term_rack") {
+	        var data = event.dataTransfer.getData("text/html");
+	        var dropped = document.getElementById(data);
+	        event.target.appendChild(dropped);
+	    }
+	    update();
+	};
 
 	//offset sides
 	sides = document.getElementById("sides");
@@ -37,7 +52,7 @@ function init(){
 	};
 	leftSide.ondrop = function(event) {
 	    if ( event.target.id == "left_side"  && leftSide.children.length < 5) {
-	        var data = event.dataTransfer.getData("event_target_id");
+	        var data = event.dataTransfer.getData("text/html");
 	        var dropped = document.getElementById(data);
 	        event.target.appendChild(dropped);
 	    }
@@ -54,7 +69,7 @@ function init(){
 	};
 	rightSide.ondrop=function(event){
 		if ( event.target.id == "right_side" && rightSide.children.length < 5) {
-	        var data = event.dataTransfer.getData("event_target_id");
+	        var data = event.dataTransfer.getData("text/html");
 	        var dropped = document.getElementById(data);
 	        event.target.appendChild(dropped);
 	    }
@@ -69,9 +84,10 @@ function init(){
 	}
 	trash.ondrop = function(event){
 		if (event.target.id == "trash"){
-			var data = event.dataTransfer.getData("event_target_id");
+			var data = event.dataTransfer.getData("text/html");
 			event.target.appendChild(document.getElementById(data));
 		}
+		update();
 	}
 
 	xVal = document.getElementById("x_val");
@@ -88,8 +104,9 @@ function init(){
 
 
 function draw(){
-	//draw the scale rectangle
+
 	console.log(angle);
+	
 	if (angle == -25){
 		sides.className = "sides-rotated-ccw";
 	} else if (angle == 25){
@@ -101,14 +118,14 @@ function draw(){
 }
 
 function newX(me){
-	if (document.getElementById("new_term_rack").children.length<10){
+	if (termRack.children.length<10){
 		//create div
 		var newXTermDiv = document.createElement("div");
 		newXTermDiv.id = "term_"+TERM_ID++;
 		newXTermDiv.className = "term x";
 		newXTermDiv.draggable = true;
 		newXTermDiv.ondragstart = function(event) {
-		    event.dataTransfer.setData("event_target_id", event.target.id);
+		    event.dataTransfer.setData("text/html", event.target.id);
 		};
 		//create input field
 		var newXTermInput = document.createElement("input");
@@ -138,14 +155,14 @@ function newX(me){
 
 function newC(me){
 
-	if (document.getElementById("new_term_rack").children.length<10){
+	if (termRack.children.length<10){
 		//create div
 		var newCTermDiv = document.createElement("div");
 		newCTermDiv.id = "term_"+TERM_ID++;
 		newCTermDiv.className = "term c";
 		newCTermDiv.draggable = true;
 		newCTermDiv.ondragstart = function(event) {
-		    event.dataTransfer.setData("event_target_id", event.target.id);
+		    event.dataTransfer.setData("text/html", event.target.id);
 		};
 		//create input field
 		var newCTermInput = document.createElement("input");

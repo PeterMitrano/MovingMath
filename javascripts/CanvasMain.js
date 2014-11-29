@@ -1,40 +1,37 @@
 "use strict";
 
+var canvas;
+var context;
+var centerX;
+var centerY;
+var angle = 0;
 var TERM_ID = 0;
+var A = 0,B = 0,C = 0,D = 0;
 var xVal;
+var sides;
 var leftSide;
 var rightSide;
 var leftWeight;
 var rightWeight;
-var trash
+var trash;
 
-function paint(){
+function init(){
+	canvas = document.getElementById("my_canvas");
+	centerX = canvas.width/2;
+	centerY = canvas.height/2;
 
-	var canvas = document.getElementById("my_canvas");
-	var centerX = canvas.width/2;
-	var centerY = canvas.height/2;
-
-	var context = canvas.getContext("2d");
-	context.fillStyle = "#000000";
-	var barW = 600;
-	var barH = 20;
-	context.fillRect(centerX-barW/2,centerY-barH/2,barW,barH);
-
-	var centerX = canvas.width / 2;
-    var centerY = canvas.height / 2;
-    var radius = 5;
-	context.beginPath();
-	context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-	context.fillStyle = 'white';
-	context.fill();
+	context = canvas.getContext("2d");
 
 	var leftSideHeight = 50;
 	var termRackHeight = document.getElementById("new_term_rack").clientHeight;
 
+	//offset sides
+	sides = document.getElementById("sides");
+	sides.style.top=(canvas.height/2-20-sides.style.borderBottomWidth-termRackHeight)+"px";
+
 	leftSide = document.createElement("div");
 	leftSide.id = "left_side";
 	leftSide.className = "side left";
-	leftSide.style.top=(canvas.height/2-barH/2-leftSideHeight-termRackHeight)+"px";
 	leftSide.ondragover = function(event) {
 	    event.preventDefault();
 	};
@@ -52,7 +49,6 @@ function paint(){
 	rightSide = document.createElement("div");
 	rightSide.id = "right_side";
 	rightSide.className = "side right";
-	rightSide.style.top=(canvas.height/2-barH/2-leftSideHeight-termRackHeight)+"px";
 	rightSide.ondragover = function(event) {
 	    event.preventDefault();
 	};
@@ -67,7 +63,6 @@ function paint(){
 	document.getElementById("sides").appendChild(rightSide);
 
 
-
 	trash = document.getElementById("trash");
 	trash.ondragover = function(event){
 		event.preventDefault();
@@ -80,19 +75,30 @@ function paint(){
 	}
 
 	xVal = document.getElementById("x_val");
-	xVal.onchange = function(){
-		alert(this.value);
+	xVal.oninput = function(){
 		update();
 	}
 
+	draw();
+
 	newC();
 	newC();
 	newC();
-	newX();
-	newX();
-	newX();
 }
 
+
+function draw(){
+	//draw the scale rectangle
+	console.log(angle);
+	if (angle == -25){
+		sides.className = "sides-rotated-ccw";
+	} else if (angle == 25){
+		sides.className = "sides-rotated-cw";
+	} else {
+		sides.className = "sides-flat";
+	}
+
+}
 
 function newX(me){
 	if (document.getElementById("new_term_rack").children.length<10){
@@ -109,13 +115,14 @@ function newX(me){
 		newXTermInput.className = "coefficient";
 		newXTermInput.value = 1;
 		newXTermInput.maxLength = 3;
-		newXTermInput.onchange = function(){
-			if (this.value > 0){
-				newXTermDiv.style.backgroundColor("#f00")
+		newXTermInput.oninput = function(){
+			if (this.value < 0){
+				newXTermDiv.style.backgroundColor = "Red";
 			}
 			else {
-				newXTermDiv.style.backgroundColor("#00f")
+				newXTermDiv.style.backgroundColor = "Blue";
 			}
+			update();
 		}
 		//create span
 		var newXSpan = document.createElement("span");
@@ -145,13 +152,14 @@ function newC(me){
 		newCTermInput.className = "coefficient";
 		newCTermInput.value = 1;
 		newCTermInput.maxLength = 3;
-		newCTermInput.onchange = function(){
-			if (this.value > 0){
-				newXTermDiv.style.backgroundColor("#f00")
+		newCTermInput.oninput = function(){
+			if (this.value < 0){
+				newCTermDiv.style.backgroundColor = "Red";
 			}
 			else {
-				newXTermDiv.style.backgroundColor("#00f")
+				newCTermDiv.style.backgroundColor = "Blue";
 			}
+			update();
 		}
 		//add input to div
 		newCTermDiv.appendChild(newCTermInput);
@@ -161,20 +169,62 @@ function newC(me){
 }
 
 function update(me){
-	for (var i=0,l=leftSide.children.length;i<l;i++){
-		var child = leftSide.children[i];
-		var coefficient = child.children[0];
-		var weight;
-		if (child.className == "term x"){
-			weight = coefficient.value * document.getElementById("x_val").value;
-		}
-		else if (child.className == "term c"){
-			weight = coefficient.value;
-		}
-		console.log("term weight="+weight);
+	calculateWeights();
+	
+	if (leftWeight < rightWeight){
+		angle = -25;
+
 	}
+	else if (leftWeight > rightWeight){
+		angle = 25;
+	}
+	else{
+		angle = 0;
+	}
+
+	draw();
 }
 
-function solve(me){
+function solve(){
+	var coefficients = calculateWeights();
+	var newXValue = (coefficients[3] - coefficients[2]) / (coefficients[0] - coefficients[1]);
+	console.log("x="+newXValue);
+	xVal.value = newXValue;	
+}
 
+function calculateWeights(){
+	leftWeight = 0;
+	rightWeight = 0;
+	var A=0,B=0,C=0,D=0;
+
+	for (var i = 0,l = leftSide.children.length;i<l;i++){
+		var child = leftSide.children[i];
+		var coefficient = child.children[0];
+		if (child.className == "term x"){
+			var w = parseInt(coefficient.value * document.getElementById("x_val").value);
+			A += parseInt(coefficient.value);
+			leftWeight += w;
+		}
+		else if (child.className == "term c"){
+			var w =parseInt(coefficient.value);
+			C += w;
+			leftWeight += w;
+		}
+	}
+	
+	for (var i = 0,l = rightSide.children.length;i<l;i++){
+		var child = rightSide.children[i];
+		var coefficient = child.children[0];
+		if (child.className == "term x"){
+			var w = parseInt(coefficient.value * document.getElementById("x_val").value);
+			C += parseInt(coefficient.value);
+			rightWeight += w;
+		}
+		else if (child.className == "term c"){
+			var w = parseInt(coefficient.value);
+			D += w;
+			rightWeight += w;
+		}
+	}
+	return [A,B,C,D];
 }

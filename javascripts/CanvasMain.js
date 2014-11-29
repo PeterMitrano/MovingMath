@@ -106,7 +106,7 @@ function init(){
 function draw(){
 
 	console.log(angle);
-	
+
 	if (angle == -25){
 		sides.className = "sides-rotated-ccw";
 	} else if (angle == 25){
@@ -207,6 +207,7 @@ function solve(){
 	var newXValue = (coefficients[3] - coefficients[2]) / (coefficients[0] - coefficients[1]);
 	console.log("x="+newXValue);
 	xVal.value = newXValue;	
+	update();
 }
 
 function calculateWeights(){

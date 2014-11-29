@@ -26,20 +26,7 @@ function init(){
 	var leftSideHeight = 50;
 	termRack = document.getElementById("new_term_rack");
 	var termRackHeight = termRack.clientHeight;
-	termRack.ondragover = function(event) {
-		console.log("ondragover");
-	    event.preventDefault();
-	};
-	termRack.ondrop = function(event) {
-		console.log("ondrop");
-	    if (event.target.id == "new_term_rack") {
-	        var data = event.dataTransfer.getData("text/html");
-	        var dropped = document.getElementById(data);
-	        event.target.appendChild(dropped);
-	    }
-	    update();
-	};
-
+	
 	//offset sides
 	sides = document.getElementById("sides");
 	sides.style.top=(canvas.height/2-20-sides.style.borderBottomWidth-termRackHeight)+"px";
@@ -52,9 +39,21 @@ function init(){
 	};
 	leftSide.ondrop = function(event) {
 	    if ( event.target.id == "left_side"  && leftSide.children.length < 5) {
-	        var data = event.dataTransfer.getData("text/html");
-	        var dropped = document.getElementById(data);
+	        var dragged_id = event.dataTransfer.getData("dragged_id");
+	        var parent_id = event.dataTransfer.getData("parent_id");
+	        var dropped = document.getElementById(dragged_id);
+	        var droppedFrom = document.getElementById(parent_id);
 	        event.target.appendChild(dropped);
+	        if (droppedFrom == rightSide){
+	        	var coefficient = dropped.children[0];
+	        	if (dropped.style.backgroundColor == "red"){
+	        		dropped.style.backgroundColor = "blue";
+	        		coefficient.value = Math.abs(parseInt(coefficient.value));
+	        	} else {
+	        		dropped.style.backgroundColor = "red";
+	        		coefficient.value = -parseInt(coefficient.value);
+	        	}
+	        }
 	    }
 	    update();
 	};
@@ -69,9 +68,21 @@ function init(){
 	};
 	rightSide.ondrop=function(event){
 		if ( event.target.id == "right_side" && rightSide.children.length < 5) {
-	        var data = event.dataTransfer.getData("text/html");
-	        var dropped = document.getElementById(data);
+	        var dragged_id = event.dataTransfer.getData("dragged_id");
+	        var parent_id = event.dataTransfer.getData("parent_id");
+	        var dropped = document.getElementById(dragged_id);
+	        var droppedFrom = document.getElementById(parent_id);
 	        event.target.appendChild(dropped);
+	     	if (droppedFrom == leftSide){
+	     		var coefficient = dropped.children[0];
+	        	if (dropped.style.backgroundColor == "red"){
+	        		dropped.style.backgroundColor = "blue";
+	        		coefficient.value = Math.abs(parseInt(coefficient.value));
+	        	} else {
+	        		dropped.style.backgroundColor = "red";
+	        		coefficient.value = -parseInt(coefficient.value);
+	        	}
+	        }
 	    }
 	    update();
 	};
@@ -84,7 +95,7 @@ function init(){
 	}
 	trash.ondrop = function(event){
 		if (event.target.id == "trash"){
-			var data = event.dataTransfer.getData("text/html");
+			var data = event.dataTransfer.getData("dragged_id");
 			event.target.appendChild(document.getElementById(data));
 		}
 		update();
@@ -125,7 +136,8 @@ function newX(me){
 		newXTermDiv.className = "term x";
 		newXTermDiv.draggable = true;
 		newXTermDiv.ondragstart = function(event) {
-		    event.dataTransfer.setData("text/html", event.target.id);
+		    event.dataTransfer.setData("dragged_id", newXTermDiv.id);
+		    event.dataTransfer.setData("parent_id", newXTermDiv.parentElement.id);
 		};
 		//create input field
 		var newXTermInput = document.createElement("input");
@@ -162,7 +174,8 @@ function newC(me){
 		newCTermDiv.className = "term c";
 		newCTermDiv.draggable = true;
 		newCTermDiv.ondragstart = function(event) {
-		    event.dataTransfer.setData("text/html", event.target.id);
+		    event.dataTransfer.setData("dragged_id", newCTermDiv.id);
+		    event.dataTransfer.setData("parent_id", newCTermDiv.parentElement.id);
 		};
 		//create input field
 		var newCTermInput = document.createElement("input");

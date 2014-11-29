@@ -235,7 +235,7 @@ function calculateWeights(){
 		var coefficient = child.children[0];
 		if (child.className == "term x"){
 			var w = parseInt(coefficient.value * document.getElementById("x_val").value);
-			C += parseInt(coefficient.value);
+			B += parseInt(coefficient.value);
 			rightWeight += w;
 		}
 		else if (child.className == "term c"){

@@ -110,7 +110,8 @@ function init(){
 
 	newC();
 	newC();
-	newC();
+	newX();
+	newX();
 }
 
 

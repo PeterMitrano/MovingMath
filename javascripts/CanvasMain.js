@@ -1,9 +1,8 @@
 "use strict";
 
-var canvas;
 var context;
-var centerX;
-var centerY;
+var centerX = 400;
+var centerY = 300;
 var angle = 0;
 var TERM_ID = 0;
 var A = 0,B = 0,C = 0,D = 0;
@@ -17,19 +16,14 @@ var rightWeight;
 var trash;
 
 function init(){
-	canvas = document.getElementById("my_canvas");
-	centerX = canvas.width/2;
-	centerY = canvas.height/2;
-
-	context = canvas.getContext("2d");
 
 	var leftSideHeight = 50;
-	termRack = document.getElementById("new_term_rack");
+	termRack = $("#new_term_rack");
 	var termRackHeight = termRack.clientHeight;
 	
 	//offset sides
 	sides = document.getElementById("sides");
-	sides.style.top=(canvas.height/2-20-sides.style.borderBottomWidth-termRackHeight)+"px";
+	sides.style.top=(centerY-20-sides.style.borderBottomWidth-termRackHeight)+"px";
 
 	leftSide = document.createElement("div");
 	leftSide.id = "left_side";

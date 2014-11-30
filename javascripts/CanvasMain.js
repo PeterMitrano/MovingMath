@@ -145,7 +145,6 @@ function newX(me) {
 		}
 		newXTermDiv.each(function() {
 			$(this).click(function() {
-				alert("click x term div");
 				newXTermInput.focus();
 			});
 		});
@@ -198,7 +197,6 @@ function newC(me) {
 		}
 		newCTermDiv.each(function() {
 			$(this).click(function() {
-				alert("click c term div");
 				newCTermInput.focus();
 			});
 		});

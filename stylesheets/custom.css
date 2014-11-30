@@ -114,11 +114,11 @@
 		}
 
 		.sides-rotated-cw{
-			-webkit-transform:rotate(-15deg);
+			-webkit-transform:rotate(-10deg);
 		}
 
 		.sides-rotated-ccw{
-			-webkit-transform:rotate(15deg);
+			-webkit-transform:rotate(10deg);
 		}
 
 		.sides-flat{

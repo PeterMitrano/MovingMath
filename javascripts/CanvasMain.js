@@ -231,7 +231,7 @@ function update(me) {
 function solve(){
 	var coefficients = calculateWeights();
 	var newXValue = (coefficients[3] - coefficients[2]) / (coefficients[0] - coefficients[1]);
-	xVal.value = newXValue;	
+	_xVal.attr('value',newXValue);
 	update();
 }
 

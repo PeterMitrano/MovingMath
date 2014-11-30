@@ -78,11 +78,12 @@ function handleTermDrop(event,ui) {
 	var draggable = $(ui.draggable);
 	var droppable = $(this);
 	var draggedFrom = $(draggable.parent());
+	console.log(droppable+" "+draggedFrom);
 	if (droppable.children().length < 3){
 		droppable.toggleClass("highlighted");
 		draggable.position(0,0);
 		droppable.append(draggable);
-		if (draggedFrom.hasClass("side")){
+		if (draggedFrom.hasClass("side") && draggedFrom.attr('id') != droppable.attr('id')){
 			var red = "rgb(255, 0, 0)";
 			var blue = "rgb(0, 0, 255)";
 			var term = $(draggable.children()[0]);

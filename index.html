@@ -38,7 +38,7 @@
         <div id = "program">  
           <div id="toolbar">
             <div id="equations">
-              <textarea id="problem_eq"rows="1" cols="25" maxlength="25">Type your equation here!</textarea>
+              <textarea id="problem_eq"rows="1" cols="25" maxlength="25" placeholder="Type your equation here!"></textarea>
               <textarea id="scale_eq" rows="1" cols="25" maxlength="25" readonly>Your scale represents...</textarea>
             </div>
             <div id="buttons">
@@ -48,10 +48,10 @@
             </div>
 
             <div id="more_buttons">
-              <span id="x_label">
-                X=
-              <span>
+              <span id="x_label">X=<span>
               <input id="x_val" value="0.0" maxlength="7" />
+              <input type="checkbox" value="show"></input>
+              <span id="show_x">show X solution</span>
             </div>
           </div>
 

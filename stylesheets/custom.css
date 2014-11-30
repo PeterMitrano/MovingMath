@@ -53,6 +53,9 @@
 			text-align: center;
 		}
 
+		#show_x{
+			font-size: 15px;
+		}
 
 #canvas_container{
 	position: relative;

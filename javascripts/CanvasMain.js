@@ -92,10 +92,10 @@ function handleTermDrop(event,ui) {
 		if (draggedFrom.hasClass('side') && draggedFrom.attr('id') != droppable.attr('id')){
 			var term = $(draggable.children()[0]);
 			var coefficient = $(term.children()[0]);
-			if (term.css('backgroundColor') == red){
+			if (term.css('backgroundColor') === red){
 				term.css('backgroundColor', blue);
 				coefficient.attr('value',Math.abs(parseFloat(coefficient.attr('value'))));
-			} else if (term.css('backgroundColor') == blue){
+			} else if (term.css('backgroundColor') === blue){
 				term.css('backgroundColor', red);
 				coefficient.attr('value',-Math.abs(parseFloat(coefficient.attr('value'))));
 			}
@@ -129,7 +129,7 @@ function handleTermToTermDrop(event,ui){
 
 	console.log(term1.attr('class') + " " + term2.attr('class'));
 	
-	if (term1.attr('class') == term2.attr('class')){
+	if (term1.attr('class') === term2.attr('class')){
 
 		
 		var coefficient1 = $(term1.children()[0]);
@@ -294,7 +294,7 @@ function calculateWeights(){
 	
 		if (term.hasClass('x')) {
 			var c;
-			if (coefficient.attr('value')==""){
+			if (coefficient.attr('value')===""){
 				c = 1;
 			}
 			else {
@@ -322,7 +322,7 @@ function calculateWeights(){
 	
 		if (term.hasClass('x')) {
 			var c;
-			if (coefficient.attr('value') == ""){
+			if (coefficient.attr('value') === ""){
 				c = 1;
 			} else {
 				c = parseFloat(coefficient.attr('value'));	
@@ -366,13 +366,13 @@ function calculateWeights(){
 		eq += C;
 	}
 	
-	if (angle == -25){
+	if (angle === -25){
 		eq += '<';
 	}
-	else if (angle == 25){
+	else if (angle === 25){
 		eq += '>';
 	}
-	else if (angle == 0){
+	else if (angle === 0){
 		eq += '=';
 	}
 
@@ -395,15 +395,15 @@ function calculateWeights(){
 
 function rotate() {
 
-	if (angle == -25){
+	if (angle === -25){
 		_sides.addClass('sides-rotated-ccw');
 		_sides.removeClass('sides-rotated-cw');
 		_sides.removeClass('sides-flat');
-	} else if (angle == 25){
+	} else if (angle === 25){
 		_sides.removeClass('sides-rotated-ccw');
 		_sides.addClass('sides-rotated-cw');
 		_sides.removeClass('sides-flat');
-	} else if (angle == 0){
+	} else if (angle === 0){
 		_sides.removeClass('sides-rotated-ccw');
 		_sides.removeClass('sides-rotated-cw');
 		_sides.addClass('sides-flat');

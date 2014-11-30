@@ -162,12 +162,12 @@ function newC(me) {
 		var wrapper = $("<div>");
 		wrapper.addClass("wrapper");
 		wrapper.draggable({
-			//containment:'#canvas_container',
+			containment:'#canvas_container',
 			cursor: 'move',
-			//snap: true,
+			snap: true,
 			opacity: 0.7,
 			zIndex: 1,
-			//tolerance: 'touch',
+			tolerance: 'touch',
 			revert: true
 		});
 

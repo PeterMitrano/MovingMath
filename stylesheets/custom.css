@@ -87,6 +87,7 @@
 		.xterm_x_label{
 			font-size: 30px;
 		    color: #fff;
+		    left:-100%;
 		}
 
 		#sides{

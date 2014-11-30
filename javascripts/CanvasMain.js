@@ -77,18 +77,27 @@ function highlightSide(event,ui){
 function handleTermDrop(event,ui) {
 	var draggable = $(ui.draggable);
 	var droppable = $(this);
+	var draggedFrom = $(draggable.parent());
 	if (droppable.children().length < 3){
 		droppable.toggleClass("highlighted");
 		draggable.position(0,0);
 		droppable.append(draggable);
+		if (draggedFrom.hasClass("side")){
+			var red = "rgb(255, 0, 0)";
+			var blue = "rgb(0, 0, 255)";
+			var term = $(draggable.children()[0]);
+			var coefficient = $(term.children()[0]);
+			if (term.css('backgroundColor') == red){
+				term.css('backgroundColor', blue);
+				coefficient.attr('value',Math.abs(parseInt(coefficient.attr('value'))));
+			} else if (term.css('backgroundColor') == blue){
+				term.css('backgroundColor', red);
+				coefficient.attr('value',-Math.abs(parseInt(coefficient.attr('value'))));
+			} else {
+				console.log(term.css('backgroundColor'));
+			}
+		}
 	}
-	// if (dropped.style.backgroundColor == "red"){
-	// 	dropped.style.backgroundColor = "blue";
-	// 	coefficient.value = Math.abs(parseInt(coefficient.value));
-	// } else {
-	// 	dropped.style.backgroundColor = "red";
-	// 	coefficient.value = -parseInt(coefficient.value);
-	// }
 	update();
 }
 
@@ -100,11 +109,13 @@ function handleRackDrop(event,ui){
 		droppable.append(draggable);
 		draggable.position(0,0);
 	}
+	update();
 }
 
 function handleTrashDrop(event,ui) {
 	var draggable = $(ui.draggable);
 	draggable.remove();
+	update();
 }
 
 function newX(me) {
@@ -125,6 +136,7 @@ function newX(me) {
 		});
 
 		var newXTermDiv = $("<div>");
+		newXTermDiv.attr('id','term_'+(TERM_ID++));
 		newXTermDiv.addClass('term x');
 		
 		//create input field
@@ -180,6 +192,7 @@ function newC(me) {
 
 
 		var newCTermDiv = $("<div>");
+		newCTermDiv.attr('id','term_'+(TERM_ID++));
 		newCTermDiv.addClass("term c");
 		
 		var newCTermInput = $("<input>");

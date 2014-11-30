@@ -123,10 +123,15 @@ function handleTrashDrop(event,ui) {
 function handleTermToTermDrop(event,ui){
 	var draggable = $(ui.draggable);
 	var droppable = $(this);
-	if (draggable.attr('class') == droppable.attr('class')){
 
-		var term1 = $(droppable.children()[0]);
-		var term2 = $(draggable.children()[0]);
+	var term1 = $(droppable.children()[0]);
+	var term2 = $(draggable.children()[0]);
+
+	console.log(term1.attr('class') + " " + term2.attr('class'));
+	
+	if (term1.attr('class') == term2.attr('class')){
+
+		
 		var coefficient1 = $(term1.children()[0]);
 		var coefficient2 = $(term2.children()[0]);
 		var val1 = coefficient1.attr('value');
@@ -265,9 +270,6 @@ function newC(me) {
 
 function update(me) {
 	calculateWeights();
-	if (_scale_eq.attr('value') == _problem_eq.attr('value')){
-
-	}
 	rotate();
 }
 

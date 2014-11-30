@@ -143,7 +143,7 @@ function handleTermToTermDrop(event,ui){
 }
 
 function newX(me) {
-	if (_termRack.children().length<10){
+	if (_termRack.children().length<8){
 			
 		var wrapper = $("<div>");
 		wrapper.addClass("wrapper");
@@ -202,7 +202,7 @@ function newX(me) {
 }
 
 function newC(me) {
-	if (_termRack.children().length<10){
+	if (_termRack.children().length<8){
 
 		var wrapper = $("<div>");
 		wrapper.addClass("wrapper");

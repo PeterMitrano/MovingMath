@@ -66,7 +66,7 @@
 			margin-right: 2px;
 			height:50px;
 		    border-radius: 50%;
-		    background-color:#2f2f2f;
+		    background-color:#00f;
 		    border:1px solid #000;
 		}
 
@@ -120,6 +120,10 @@
 
 			.side.right{
 				margin-left: 10px;
+			}
+
+			.side.highlighted {
+				background-color: #d5e5d5;
 			}
 
 		#trash {

@@ -5,102 +5,60 @@ var centerX = 400;
 var centerY = 300;
 var angle = 0;
 var TERM_ID = 0;
-var A = 0,B = 0,C = 0,D = 0;
-var xVal;
-var termRack;
-var sides;
-var leftSide;
-var rightSide;
+var A = 0, B = 0, C = 0, D = 0;
+var _xVal;
+var _termRack;
+var _sides;
+var _leftSide;
+var _trash;
+var _rightSide;
 var leftWeight;
 var rightWeight;
-var trash;
 
-function init(){
+function init() {
 
 	var leftSideHeight = 50;
-	termRack = $("#new_term_rack");
-	var termRackHeight = termRack.clientHeight;
+	_termRack = $("#new_term_rack");
+	var termRackHeight = _termRack.clientHeight;
 	
 	//offset sides
-	sides = document.getElementById("sides");
-	sides.style.top=(centerY-20-sides.style.borderBottomWidth-termRackHeight)+"px";
-
-	leftSide = document.createElement("div");
-	leftSide.id = "left_side";
-	leftSide.className = "side left";
-	leftSide.ondragover = function(event) {
-	    event.preventDefault();
-	};
-	leftSide.ondrop = function(event) {
-	    if ( event.target.id == "left_side"  && leftSide.children.length < 5) {
-	        var dragged_id = event.dataTransfer.getData("dragged_id");
-	        var parent_id = event.dataTransfer.getData("parent_id");
-	        var dropped = document.getElementById(dragged_id);
-	        var droppedFrom = document.getElementById(parent_id);
-	        event.target.appendChild(dropped);
-	        if (droppedFrom == rightSide){
-	        	var coefficient = dropped.children[0];
-	        	if (dropped.style.backgroundColor == "red"){
-	        		dropped.style.backgroundColor = "blue";
-	        		coefficient.value = Math.abs(parseInt(coefficient.value));
-	        	} else {
-	        		dropped.style.backgroundColor = "red";
-	        		coefficient.value = -parseInt(coefficient.value);
-	        	}
-	        }
-	    }
-	    update();
-	};
-	document.getElementById("sides").appendChild(leftSide);
+	_sides = $("#sides");
+	_sides.css("top",centerY - 20 - _sides.css("bottom-border-width") - termRackHeight);
 
 
-	rightSide = document.createElement("div");
-	rightSide.id = "right_side";
-	rightSide.className = "side right";
-	rightSide.ondragover = function(event) {
-	    event.preventDefault();
-	};
-	rightSide.ondrop=function(event){
-		if ( event.target.id == "right_side" && rightSide.children.length < 5) {
-	        var dragged_id = event.dataTransfer.getData("dragged_id");
-	        var parent_id = event.dataTransfer.getData("parent_id");
-	        var dropped = document.getElementById(dragged_id);
-	        var droppedFrom = document.getElementById(parent_id);
-	        event.target.appendChild(dropped);
-	     	if (droppedFrom == leftSide){
-	     		var coefficient = dropped.children[0];
-	        	if (dropped.style.backgroundColor == "red"){
-	        		dropped.style.backgroundColor = "blue";
-	        		coefficient.value = Math.abs(parseInt(coefficient.value));
-	        	} else {
-	        		dropped.style.backgroundColor = "red";
-	        		coefficient.value = -parseInt(coefficient.value);
-	        	}
-	        }
-	    }
-	    update();
-	};
-	document.getElementById("sides").appendChild(rightSide);
+	_leftSide = $('<div>');
+	_leftSide.attr('id','left_side');
+	_leftSide.addClass('side left');
+	_leftSide.droppable({
+		drop: handleTermDrop,
+		over: highlightSide,
+		out: highlightSide
+	});
+	_sides.append(_leftSide);
 
 
-	trash = document.getElementById("trash");
-	trash.ondragover = function(event){
-		event.preventDefault();
-	}
-	trash.ondrop = function(event){
-		if (event.target.id == "trash"){
-			var data = event.dataTransfer.getData("dragged_id");
-			event.target.appendChild(document.getElementById(data));
-		}
+
+	_rightSide = $('<div>');
+	_rightSide.attr('id','right_side');
+	_rightSide.addClass('side right');
+	_rightSide.droppable({
+		drop: handleTermDrop,
+		over: highlightSide,
+		out: highlightSide
+	});
+	_sides.append(_rightSide);
+
+	_trash = $("#trash");
+	_trash.droppable({
+		drop: handleTrashDrop
+	});
+
+	_xVal = $("#x_val");
+	_xVal[0].oninput = function(){
 		update();
 	}
 
-	xVal = document.getElementById("x_val");
-	xVal.oninput = function(){
-		update();
-	}
-
-	draw();
+	rotate();
 
 	newC();
 	newC();
@@ -108,92 +66,133 @@ function init(){
 	newX();
 }
 
+function highlightSide(event,ui){
+	$(this).toggleClass("highlighted");
+}
 
-function draw(){
+function handleTermDrop(event,ui) {
+	var draggable = $(ui.draggable);
+	var droppable = $(this);
+	if (droppable.children().length < 5){
+		droppable.toggleClass("highlighted");
+		droppable.append(draggable);
+		//set offsets to 0
+		draggable.left = 0;
+		draggable.top = 0;
+	}
+	// if (dropped.style.backgroundColor == "red"){
+	// 	dropped.style.backgroundColor = "blue";
+	// 	coefficient.value = Math.abs(parseInt(coefficient.value));
+	// } else {
+	// 	dropped.style.backgroundColor = "red";
+	// 	coefficient.value = -parseInt(coefficient.value);
+	// }
+	update();
+}
 
-	console.log(angle);
+function handleTrashDrop(event,ui) {
+	var draggable = $(ui.draggable);
+	draggable.remove();
+}
+
+function rotate() {
 
 	if (angle == -25){
-		sides.className = "sides-rotated-ccw";
+		_sides.addClass("sides-rotated-ccw");
+		_sides.removeClass("sides-rotated-cw");
+		_sides.removeClass("sides-flat");
 	} else if (angle == 25){
-		sides.className = "sides-rotated-cw";
+		_sides.removeClass("sides-rotated-ccw");
+		_sides.addClass("sides-rotated-cw");
+		_sides.removeClass("sides-flat");
 	} else {
-		sides.className = "sides-flat";
+		_sides.removeClass("sides-rotated-ccw");
+		_sides.removeClass("sides-rotated-cw");
+		_sides.addClass("sides-flat");
 	}
 
 }
 
-function newX(me){
-	if (termRack.children.length<10){
+
+function newX(me) {
+	if (_termRack.children.length<10){
 		//create div
-		var newXTermDiv = document.createElement("div");
-		newXTermDiv.id = "term_"+TERM_ID++;
-		newXTermDiv.className = "term x";
-		newXTermDiv.draggable = true;
-		newXTermDiv.ondragstart = function(event) {
-		    event.dataTransfer.setData("dragged_id", newXTermDiv.id);
-		    event.dataTransfer.setData("parent_id", newXTermDiv.parentElement.id);
-		};
+		var newXTermDiv = $("<div>");
+		newXTermDiv.addClass('term x');
+		newXTermDiv.draggable({
+			containment:'#canvas_container',
+			cursor: 'move',
+			opacity: 0.7,
+			snap: true,
+			zIndex: 1,
+			tolerance: 'touch',
+			revert: true
+		});
+
 		//create input field
-		var newXTermInput = document.createElement("input");
-		newXTermInput.className = "coefficient";
-		newXTermInput.value = 1;
-		newXTermInput.maxLength = 3;
-		newXTermInput.oninput = function(){
+		var newXTermInput = $("<input>");
+		newXTermInput.addClass("coefficient");
+		newXTermInput.attr('value',1);
+		newXTermInput.attr('maxLength',3);
+		newXTermInput[0].oninput = function(){
 			if (this.value < 0){
-				newXTermDiv.style.backgroundColor = "Red";
+				newXTermDiv.css("backgroundColor","red");
 			}
 			else {
-				newXTermDiv.style.backgroundColor = "Blue";
+				newXTermDiv.css("backgroundColor","blue");
 			}
 			update();
 		}
 		//create span
-		var newXSpan = document.createElement("span");
-		newXSpan.className = "xterm_x_label"
-		newXSpan.innerHTML = "X";
+		var newXSpan = $("<span>X</span>");
+		newXSpan.addClass("xterm_x_label");
+
 		//add span and input filed to div
-		newXTermDiv.appendChild(newXTermInput);
-		newXTermDiv.appendChild(newXSpan);
+		newXTermDiv.append(newXTermInput);
+		newXTermDiv.append(newXSpan);
+		
 		//add div to XTerm
-		document.getElementById("new_term_rack").appendChild(newXTermDiv);
+		_termRack.append(newXTermDiv);
 	}
 }
 
-function newC(me){
+function newC(me) {
 
-	if (termRack.children.length<10){
+	if (_termRack.children.length<10){
 		//create div
-		var newCTermDiv = document.createElement("div");
-		newCTermDiv.id = "term_"+TERM_ID++;
-		newCTermDiv.className = "term c";
-		newCTermDiv.draggable = true;
-		newCTermDiv.ondragstart = function(event) {
-		    event.dataTransfer.setData("dragged_id", newCTermDiv.id);
-		    event.dataTransfer.setData("parent_id", newCTermDiv.parentElement.id);
-		};
-		//create input field
-		var newCTermInput = document.createElement("input");
-		newCTermInput.className = "coefficient";
-		newCTermInput.value = 1;
-		newCTermInput.maxLength = 3;
-		newCTermInput.oninput = function(){
+		var newCTermDiv = $("<div>");
+		newCTermDiv.addClass("term c");
+		newCTermDiv.draggable({
+			containment:'#canvas_container',
+			cursor: 'move',
+			snap: true,
+			opacity: 0.7,
+			zIndex: 1,
+			tolerance: 'touch',
+			revert: true
+		});
+
+		var newCTermInput = $("<input>");
+		newCTermInput.addClass("coefficient");
+		newCTermInput.attr('value',1);
+		newCTermInput.attr('maxLength',3);
+		newCTermInput[0].oninput = function(){
 			if (this.value < 0){
-				newCTermDiv.style.backgroundColor = "Red";
+				newCTermDiv.css("backgroundColor","red");
 			}
 			else {
-				newCTermDiv.style.backgroundColor = "Blue";
+				newCTermDiv.css("backgroundColor","blue");
 			}
 			update();
 		}
 		//add input to div
-		newCTermDiv.appendChild(newCTermInput);
+		newCTermDiv.append(newCTermInput);
 		//add div to CTerm
-		document.getElementById("new_term_rack").appendChild(newCTermDiv);
+		_termRack.append(newCTermDiv);
 	}
 }
 
-function update(me){
+function update(me) {
 	calculateWeights();
 	
 	if (leftWeight < rightWeight){
@@ -207,13 +206,12 @@ function update(me){
 		angle = 0;
 	}
 
-	draw();
+	rotate();
 }
 
 function solve(){
 	var coefficients = calculateWeights();
 	var newXValue = (coefficients[3] - coefficients[2]) / (coefficients[0] - coefficients[1]);
-	console.log("x="+newXValue);
 	xVal.value = newXValue;	
 	update();
 }
@@ -222,35 +220,36 @@ function calculateWeights(){
 	leftWeight = 0;
 	rightWeight = 0;
 	var A=0,B=0,C=0,D=0;
-
-	for (var i = 0,l = leftSide.children.length;i<l;i++){
-		var child = leftSide.children[i];
-		var coefficient = child.children[0];
-		if (child.className == "term x"){
-			var w = parseInt(coefficient.value * document.getElementById("x_val").value);
-			A += parseInt(coefficient.value);
+	for (var i = 0,l = _leftSide.children().length;i<l;i++){
+		var child = $(_leftSide.children()[i]);
+		var coefficient = child.children()[0];
+		if (child.hasClass("x")) {
+			var w = parseInt(coefficient.value * _xVal.attr('value'));
+			A += parseInt(coefficient.attr('value'));
 			leftWeight += w;
 		}
-		else if (child.className == "term c"){
-			var w =parseInt(coefficient.value);
+		else if (child.hasClass("c")) {
+			var w =parseInt(coefficient.attr('value'));
 			C += w;
 			leftWeight += w;
 		}
 	}
 	
-	for (var i = 0,l = rightSide.children.length;i<l;i++){
-		var child = rightSide.children[i];
-		var coefficient = child.children[0];
-		if (child.className == "term x"){
-			var w = parseInt(coefficient.value * document.getElementById("x_val").value);
-			B += parseInt(coefficient.value);
+	for (var i = 0,l = _rightSide.children().length;i<l;i++){
+		var child = $(_rightSide.children()[i]);
+		var coefficient = child.children()[0];
+		if (child.hasClass("x")) {
+			var w = parseInt(coefficient.attr('value') * _xVal.attr('value'));
+			B += parseInt(coefficient.attr('value'));
 			rightWeight += w;
 		}
-		else if (child.className == "term c"){
-			var w = parseInt(coefficient.value);
+		else if (child.hasClass("c")) {
+			var w = parseInt(coefficient.attr('value'));
 			D += w;
 			rightWeight += w;
 		}
 	}
+
+	console.log(leftWeight+" "+rightWeight);
 	return [A,B,C,D];
 }

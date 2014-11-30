@@ -95,25 +95,6 @@ function handleTrashDrop(event,ui) {
 	draggable.remove();
 }
 
-function rotate() {
-
-	if (angle == -25){
-		_sides.addClass("sides-rotated-ccw");
-		_sides.removeClass("sides-rotated-cw");
-		_sides.removeClass("sides-flat");
-	} else if (angle == 25){
-		_sides.removeClass("sides-rotated-ccw");
-		_sides.addClass("sides-rotated-cw");
-		_sides.removeClass("sides-flat");
-	} else {
-		_sides.removeClass("sides-rotated-ccw");
-		_sides.removeClass("sides-rotated-cw");
-		_sides.addClass("sides-flat");
-	}
-
-}
-
-
 function newX(me) {
 	if (_termRack.children.length<10){
 		//create div
@@ -195,14 +176,14 @@ function newC(me) {
 function update(me) {
 	calculateWeights();
 	
-	if (leftWeight < rightWeight){
+	if (leftWeight < rightWeight) {
 		angle = -25;
 
 	}
-	else if (leftWeight > rightWeight){
+	else if (leftWeight > rightWeight) {
 		angle = 25;
 	}
-	else{
+	else if (leftWeight == rightWeight) {
 		angle = 0;
 	}
 
@@ -220,11 +201,15 @@ function calculateWeights(){
 	leftWeight = 0;
 	rightWeight = 0;
 	var A=0,B=0,C=0,D=0;
+	var x = parseInt(_xVal.attr('value'));
+
 	for (var i = 0,l = _leftSide.children().length;i<l;i++){
+	
 		var child = $(_leftSide.children()[i]);
-		var coefficient = child.children()[0];
+		var coefficient = $(child.children()[0]);
+	
 		if (child.hasClass("x")) {
-			var w = parseInt(coefficient.value * _xVal.attr('value'));
+			var w = parseInt(coefficient.attr('value') * x);
 			A += parseInt(coefficient.attr('value'));
 			leftWeight += w;
 		}
@@ -236,10 +221,12 @@ function calculateWeights(){
 	}
 	
 	for (var i = 0,l = _rightSide.children().length;i<l;i++){
+	
 		var child = $(_rightSide.children()[i]);
-		var coefficient = child.children()[0];
+		var coefficient = $(child.children()[0]);
+	
 		if (child.hasClass("x")) {
-			var w = parseInt(coefficient.attr('value') * _xVal.attr('value'));
+			var w = parseInt(coefficient.attr('value') * x);
 			B += parseInt(coefficient.attr('value'));
 			rightWeight += w;
 		}
@@ -252,4 +239,22 @@ function calculateWeights(){
 
 	console.log(leftWeight+" "+rightWeight);
 	return [A,B,C,D];
+}
+
+function rotate() {
+
+	if (angle == -25){
+		_sides.addClass("sides-rotated-ccw");
+		_sides.removeClass("sides-rotated-cw");
+		_sides.removeClass("sides-flat");
+	} else if (angle == 25){
+		_sides.removeClass("sides-rotated-ccw");
+		_sides.addClass("sides-rotated-cw");
+		_sides.removeClass("sides-flat");
+	} else if (angle == 0){
+		_sides.removeClass("sides-rotated-ccw");
+		_sides.removeClass("sides-rotated-cw");
+		_sides.addClass("sides-flat");
+	}
+
 }

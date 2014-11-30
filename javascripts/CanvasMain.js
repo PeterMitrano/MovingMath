@@ -7,6 +7,7 @@ var angle = 0;
 var TERM_ID = 0;
 var A = 0, B = 0, C = 0, D = 0;
 var _xVal;
+var _eq;
 var _termRack;
 var _sides;
 var _leftSide;
@@ -63,6 +64,8 @@ function init() {
 		update();
 	}
 
+	_eq = $("#scale_eq");
+
 	rotate();
 
 	newC();
@@ -90,10 +93,10 @@ function handleTermDrop(event,ui) {
 			var coefficient = $(term.children()[0]);
 			if (term.css('backgroundColor') == red){
 				term.css('backgroundColor', blue);
-				coefficient.attr('value',Math.abs(parseInt(coefficient.attr('value'))));
+				coefficient.attr('value',Math.abs(parseFloat(coefficient.attr('value'))));
 			} else if (term.css('backgroundColor') == blue){
 				term.css('backgroundColor', red);
-				coefficient.attr('value',-Math.abs(parseInt(coefficient.attr('value'))));
+				coefficient.attr('value',-Math.abs(parseFloat(coefficient.attr('value'))));
 			} else {
 				console.log(term.css('backgroundColor'));
 			}
@@ -210,6 +213,7 @@ function newC(me) {
 			}
 			update();
 		}
+
 		newCTermDiv.each(function() {
 			$(this).click(function() {
 				newCTermInput.focus();
@@ -225,21 +229,7 @@ function newC(me) {
 }
 
 function update(me) {
-	//map click to get focus!
-
 	calculateWeights();
-	
-	if (leftWeight < rightWeight) {
-		angle = -25;
-
-	}
-	else if (leftWeight > rightWeight) {
-		angle = 25;
-	}
-	else if (leftWeight == rightWeight) {
-		angle = 0;
-	}
-
 	rotate();
 }
 
@@ -254,7 +244,7 @@ function calculateWeights(){
 	leftWeight = 0;
 	rightWeight = 0;
 	var A=0,B=0,C=0,D=0;
-	var x = parseInt(_xVal.attr('value'));
+	var x = parseFloat(_xVal.attr('value'));
 
 	for (var i = 0,l = _leftSide.children().length;i<l;i++){
 	
@@ -263,12 +253,12 @@ function calculateWeights(){
 		var coefficient = $(term.children()[0]);
 	
 		if (term.hasClass("x")) {
-			var w = parseInt(coefficient.attr('value') * x);
-			A += parseInt(coefficient.attr('value'));
+			var w = parseFloat(coefficient.attr('value') * x);
+			A += parseFloat(coefficient.attr('value'));
 			leftWeight += w;
 		}
 		else if (term.hasClass("c")) {
-			var w =parseInt(coefficient.attr('value'));
+			var w =parseFloat(coefficient.attr('value'));
 			C += w;
 			leftWeight += w;
 		}
@@ -281,18 +271,67 @@ function calculateWeights(){
 		var coefficient = $(term.children()[0]);
 	
 		if (term.hasClass("x")) {
-			var w = parseInt(coefficient.attr('value') * x);
-			B += parseInt(coefficient.attr('value'));
+			var w = parseFloat(coefficient.attr('value') * x);
+			B += parseFloat(coefficient.attr('value'));
 			rightWeight += w;
 		}
 		else if (term.hasClass("c")) {
-			var w = parseInt(coefficient.attr('value'));
+			var w = parseFloat(coefficient.attr('value'));
 			D += w;
 			rightWeight += w;
 		}
 	}
 
 	console.log(leftWeight+" "+rightWeight);
+
+
+	var diff = Math.abs(rightWeight-leftWeight);
+
+	if (leftWeight > rightWeight && diff > 0.001 ) {
+		angle = 25;
+
+	}
+	else if (leftWeight < rightWeight  && diff > 0.001) {
+		angle = -25;
+	}
+	else {
+		angle = 0;
+	}
+
+	//build equation
+	var eq = "";
+
+	if (A!=0){
+		eq += A+"X";
+		if (C!=0){
+			eq += "+"+C;
+		}
+	}
+	else {
+		eq += C;
+	}
+	
+	if (angle == -25){
+		eq += "<";
+	}
+	else if (angle == 25){
+		eq += ">";
+	}
+	else if (angle == 0){
+		eq += "=";
+	}
+
+
+	if (B!=0){
+		eq += B+"X";
+		if (D!=0){
+			eq += "+"+D;
+		}
+	}
+	else {
+		eq += D;
+	}
+	_eq.attr('value',eq);
 	return [A,B,C,D];
 }
 

@@ -37,7 +37,8 @@
       <center>    
         <div id = "program">  
           <div id="toolbar">
-            <textarea id="equation_field" rows="1" cols="50" maxlength="25">Type your equation here!</textarea>
+            <textarea id="problem_eq" class="equation_field" rows="1" cols="25" maxlength="25">Type your equation here!</textarea>
+            <textarea id="scale_eq" class="equation_field scale" rows="1" cols="25" maxlength="25" readonly>Your scale represents...</textarea>
             <div id="buttons">
               <button id="button" type="button" onclick="newC(event)">New Constant Term</button>
               <button id="button" type="button" onclick="newX(event)"> New X Term</button>
@@ -45,12 +46,11 @@
             </div>
 
             <div id="more_buttons">
-              <!--<button id="update" type="button" onclick="update(event)">Update</button>-->
               <span id="x_label">
                 X=
               <span>
               <span>
-                    <input id="x_val" value="0.0" maxlength="5" />
+                    <input id="x_val" value="0.0" maxlength="7" />
                   </span>
             </div>
           </div>

@@ -103,7 +103,7 @@
 			position: relative;
 			width:600px;
 			height:50px;
-			top:150px;
+			top:175px;
 			border-bottom: 10px solid #90FF00;
 		}
 
@@ -144,5 +144,5 @@
 
 		#trash {
 			position: relative;
-			top: 200px;
+			top: 225px;
 		}

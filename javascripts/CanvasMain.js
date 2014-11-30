@@ -109,7 +109,6 @@ function newX(me) {
 			tolerance: 'touch',
 			revert: true
 		});
-		newXTermDiv.touchDraggable();
 
 		//create input field
 		var newXTermInput = $("<input>");
@@ -152,7 +151,6 @@ function newC(me) {
 			tolerance: 'touch',
 			revert: true
 		});
-		newCTermDiv.touchDraggable();
 
 		var newCTermInput = $("<input>");
 		newCTermInput.addClass("coefficient");

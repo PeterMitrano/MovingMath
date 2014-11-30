@@ -110,6 +110,7 @@
 			display: inline-block;
 			width:290px;
 			height:100px;
+			top:-100%;
 			line-height: 50px;
 			background-color: #e5e5e5;
 			color: #888;

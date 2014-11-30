@@ -134,6 +134,8 @@ function newX(me) {
 		newXTermInput.attr('value',1);
 		newXTermInput.attr('maxLength',3);
 		newXTermInput.css('line-height',2);
+		newXTermInput.css('left',0);
+		newXTermInput.css('margin',0);
 		newXTermInput[0].oninput = function(){
 			if (this.value < 0){
 				newXTermDiv.css("backgroundColor","red");
@@ -151,7 +153,6 @@ function newX(me) {
 		newXTermInputSpan.append(newXTermInput)
 		newXTermDiv.append(newXTermInputSpan);
 		newXTermDiv.append(newXSpan);
-		newXTermDiv.append($("<span>X</span>").addClass("xterm_x_label"));
 		
 		wrapper.append(newXTermDiv);
 

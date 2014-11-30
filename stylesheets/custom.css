@@ -70,7 +70,7 @@
 		.term {
 			position: absolute;
 			bottom: 0px;
-			width:125px;
+			width:75px;
 			height:75px;
 		    background-color:#00f;
 		}
@@ -87,6 +87,7 @@
 		.xterm_x_label{
 			font-size: 35px;
 		    color: #fff;
+		    z-index: 2;
 		}
 
 		#sides{

@@ -143,6 +143,12 @@ function newX(me) {
 			}
 			update();
 		}
+		newXTermDiv.each(function() {
+			$(this).click(function() {
+				alert("click x term div");
+				newXTermInput.focus();
+			});
+		});
 
 		//create span
 		var newXSpan = $("<span>X</span>");
@@ -191,11 +197,11 @@ function newC(me) {
 			update();
 		}
 		newCTermDiv.each(function() {
-		$(this).click(function() {
-			alert("click term div");
-			$(this).focus();
+			$(this).click(function() {
+				alert("click c term div");
+				newCTermInput.focus();
+			});
 		});
-	});
 		
 		newCTermDiv.append(newCTermInput);
 

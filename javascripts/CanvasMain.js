@@ -77,12 +77,10 @@ function highlightSide(event,ui){
 function handleTermDrop(event,ui) {
 	var draggable = $(ui.draggable);
 	var droppable = $(this);
-	if (droppable.children().length < 5){
+	if (droppable.children().length < 3){
 		droppable.toggleClass("highlighted");
+		draggable.position(0,0);
 		droppable.append(draggable);
-		//set offsets to 0
-		draggable.left = 0;
-		draggable.top = 0;
 	}
 	// if (dropped.style.backgroundColor == "red"){
 	// 	dropped.style.backgroundColor = "blue";
@@ -97,9 +95,10 @@ function handleTermDrop(event,ui) {
 function handleRackDrop(event,ui){
 	var draggable = $(ui.draggable);
 	var droppable = $(this);
-	if (droppable.children().length < 5){
+	if (droppable.children().length < 3){
 		droppable.toggleClass("highlighted");
 		droppable.append(draggable);
+		draggable.position(0,0);
 	}
 }
 

@@ -96,7 +96,8 @@ function handleTrashDrop(event,ui) {
 }
 
 function newX(me) {
-	if (_termRack.children.length<10){
+	console.log("new x");
+	if (_termRack.children().length<10){
 		//create div
 		var newXTermDiv = $("<div>");
 		newXTermDiv.addClass('term x');
@@ -109,6 +110,7 @@ function newX(me) {
 			tolerance: 'touch',
 			revert: true
 		});
+		newXTermDiv.touchDraggable();
 
 		//create input field
 		var newXTermInput = $("<input>");
@@ -138,8 +140,7 @@ function newX(me) {
 }
 
 function newC(me) {
-
-	if (_termRack.children.length<10){
+	if (_termRack.children().length<10){
 		//create div
 		var newCTermDiv = $("<div>");
 		newCTermDiv.addClass("term c");
@@ -152,6 +153,7 @@ function newC(me) {
 			tolerance: 'touch',
 			revert: true
 		});
+		newCTermDiv.touchDraggable();
 
 		var newCTermInput = $("<input>");
 		newCTermInput.addClass("coefficient");

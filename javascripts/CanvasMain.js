@@ -200,6 +200,13 @@ function newC(me) {
 }
 
 function update(me) {
+	//map click to get focus!
+	$("input").each(function() {
+			$(this).click(function() {
+				$(this).focus();
+			});
+		});
+
 	calculateWeights();
 	
 	if (leftWeight < rightWeight) {

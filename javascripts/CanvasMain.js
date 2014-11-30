@@ -121,7 +121,7 @@ function handleTrashDrop(event,ui) {
 function handleTermToTermDrop(event,ui){
 	var draggable = $(ui.draggable);
 	var droppable = $(this);
-	if (draggable.className == droppable.className){
+	if (draggable.attr('class') == droppable.attr('class')){
 		var term1 = $(droppable.children()[0]);
 		var term2 = $(draggable.children()[0]);
 		var coefficient1 = $(term1.children()[0]);
@@ -137,8 +137,8 @@ function handleTermToTermDrop(event,ui){
 			term1.css('backgroundColor',red);
 		}
 		draggable.remove();
-		droppable.toggleClass("highlighted");
 	}
+	droppable.toggleClass("highlighted");
 	update();
 }
 

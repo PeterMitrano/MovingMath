@@ -150,9 +150,12 @@ function newX(me) {
 		var newXSpan = $("<span>X</span>");
 		newXSpan.addClass("xterm_x_label");
 
+		
+		newXTermDiv.append(newXSpan);
+
 		newXTermInputSpan.append(newXTermInput)
 		newXTermDiv.append(newXTermInputSpan);
-		newXTermDiv.append(newXSpan);
+		
 		
 		wrapper.append(newXTermDiv);
 

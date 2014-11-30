@@ -133,7 +133,7 @@ function newX(me) {
 		newXTermInput.attr('value',1);
 		newXTermInput.attr('maxLength',3);
 		newXTermInput.css('line-height',2);
-		//newXTermInput.css('left','-20px');
+		newXTermInput.css('margin-left','-15px');
 		newXTermInput[0].oninput = function(){
 			if (this.value < 0){
 				newXTermDiv.css("backgroundColor","red");

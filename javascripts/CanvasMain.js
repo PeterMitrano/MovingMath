@@ -190,6 +190,12 @@ function newC(me) {
 			}
 			update();
 		}
+		newCTermDiv.each(function() {
+		$(this).click(function() {
+			alert("click term div");
+			$(this).focus();
+		});
+	});
 		
 		newCTermDiv.append(newCTermInput);
 
@@ -201,11 +207,6 @@ function newC(me) {
 
 function update(me) {
 	//map click to get focus!
-	$("input").each(function() {
-			$(this).click(function() {
-				$(this).focus();
-			});
-		});
 
 	calculateWeights();
 	

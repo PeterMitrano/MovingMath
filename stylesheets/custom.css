@@ -53,41 +53,42 @@
 	    	width:25px;
 			height:50px;
 			color:#fff;
-			font-size: 30px;
+			font-size: 35px;
 		}
 
 		.wrapper {
 			position:relative;
 			display: inline-block;
-			width:75px;
-			height:100px;
+			width:100px;
+			height:115px;
 			margin-left: 2px;
 			margin-right: 2px;
 			background-color: #999;
 			border:1px solid #000;
+			border-top-left-radius:35px;
+			border-top-right-radius:35px;
 		}
 
 		.term {
 			position: absolute;
 			bottom: 0px;
-			width:75px;
+			width:100px;
 			height:75px;
 		    background-color:#00f;
 		}
 
 
 			.term.x {
-			    border-radius: 25%;
+			    border-radius: 50px;
 			}
 
 			.term.c {
-			    border-radius: 0%;
+			    border-radius: 0px;
 			}
 
 		.xterm_x_label{
-			font-size: 30px;
+			font-size: 35px;
 		    color: #fff;
-		    left:-100%;
 		}
 
 		#sides{

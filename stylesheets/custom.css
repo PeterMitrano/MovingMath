@@ -49,6 +49,7 @@
 		.coefficient{
 			text-align:center;
 			background: transparent;
+			position: relative;
 	    	border: none;
 	    	width:25px;
 			height:50px;

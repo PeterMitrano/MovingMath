@@ -128,14 +128,12 @@ function newX(me) {
 		newXTermDiv.addClass('term x');
 		
 		//create input field
-		var newXTermInputSpan = $("<span>");
 		var newXTermInput = $("<input>");
 		newXTermInput.addClass("coefficient");
 		newXTermInput.attr('value',1);
 		newXTermInput.attr('maxLength',3);
 		newXTermInput.css('line-height',2);
-		newXTermInput.css('left',0);
-		newXTermInput.css('margin',0);
+		//newXTermInput.css('left','-20px');
 		newXTermInput[0].oninput = function(){
 			if (this.value < 0){
 				newXTermDiv.css("backgroundColor","red");
@@ -150,8 +148,7 @@ function newX(me) {
 		var newXSpan = $("<span>X</span>");
 		newXSpan.addClass("xterm_x_label");
 
-		newXTermInputSpan.append(newXTermInput)
-		newXTermDiv.append(newXTermInputSpan);
+		newXTermDiv.append(newXTermInput);
 		newXTermDiv.append(newXSpan);
 		
 		wrapper.append(newXTermDiv);

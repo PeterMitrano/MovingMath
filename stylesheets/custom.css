@@ -1,20 +1,36 @@
 #toolbar{
 	background-color:#0090FF;
 	width:900px;
-	height:180px;
-	padding-top:30px;
+	height:200px;
+	padding-top:10px;
 	border:4px solid #000;
 }
-	
-	.equation_field {
-		margin:10px;
+
+	#matches {
+		position: relative;
+		display: inline-block;
+		width: 25px;
+		margin-left: 10px;
+		margin-right: 10px;
+		font-size: 50px;
+		font-weight: bolder;
+		color: #0f0;
+	}
+
+	#problem_eq {
+		position: relative;
+		display: inline-block;
 		font-size:25px;
 		text-align:center;
 		resize:none;
 	}
 
-	.equation_field.scale {
-		
+	#scale_eq {
+		position: relative;
+		display: inline-block;
+		font-size:25px;
+		text-align:center;
+		resize:none;
 		background-color: #2f2f2f;
 		color: #f2f2f2;
 	}
@@ -59,16 +75,7 @@
 		}
 
 		
-		.coefficient{
-			text-align:center;
-			background: transparent;
-			position: relative;
-	    	border: none;
-	    	width:25px;
-			height:50px;
-			color:#fff;
-			font-size: 30px;
-		}
+		
 
 		.wrapper {
 			position:relative;
@@ -81,6 +88,23 @@
 			border:1px solid #000;
 			border-top-left-radius:35px;
 			border-top-right-radius:35px;
+		}
+
+
+		.coefficient{
+			text-align:center;
+			background: transparent;
+			position: relative;
+	    	border: none;
+	    	width:60px;
+	    	left:0px;
+			height:50px;
+			color:#fff;
+			font-size: 20px;
+		}
+
+		.coefficient.constant{
+	    	width:100px;
 		}
 
 		.term {
@@ -101,7 +125,7 @@
 			}
 
 		.xterm_x_label{
-			font-size: 30px;
+			font-size: 20px;
 		    color: #fff;
 		}
 

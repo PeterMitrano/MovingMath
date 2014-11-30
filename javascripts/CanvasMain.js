@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var context;
 var centerX = 400;
@@ -6,10 +6,11 @@ var centerY = 300;
 var angle = 0;
 var TERM_ID = 0;
 var A = 0, B = 0, C = 0, D = 0;
-var red = "rgb(255, 0, 0)";
-var blue = "rgb(0, 0, 255)";
+var red = 'rgb(255, 0, 0)';
+var blue = 'rgb(0, 0, 255)';
 var _xVal;
-var _eq;
+var _scale_eq;
+var _problem_eq;
 var _termRack;
 var _sides;
 var _leftSide;
@@ -22,7 +23,7 @@ var rightWeight;
 
 function init() {
 
-	_termRack = $("#new_term_rack");
+	_termRack = $('#new_term_rack');
 	_termRack.droppable({
 		drop: handleRackDrop,
 		over: highlightSide,
@@ -30,8 +31,8 @@ function init() {
 	});
 	
 	//offset sides
-	_sides = $("#sides");
-	_sides.css("top",centerY - 20 - _sides.css("bottom-border-width") - _termRack.clientHeight);
+	_sides = $('#sides');
+	_sides.css('top',centerY - 20 - _sides.css('bottom-border-width') - _termRack.clientHeight);
 
 
 	_leftSide = $('<div>');
@@ -56,17 +57,18 @@ function init() {
 	});
 	_sides.append(_rightSide);
 
-	_trash = $("#trash");
+	_trash = $('#trash');
 	_trash.droppable({
 		drop: handleTrashDrop
 	});
 
-	_xVal = $("#x_val");
+	_xVal = $('#x_val');
 	_xVal[0].oninput = function(){
 		update();
 	}
 
-	_eq = $("#scale_eq");
+	_scale_eq = $('#scale_eq');
+	_problem_eq = $('#problem_eq');
 
 	rotate();
 
@@ -76,7 +78,7 @@ function init() {
 }
 
 function highlightSide(event,ui){
-	$(this).toggleClass("highlighted");
+	$(this).toggleClass('highlighted');
 }
 
 function handleTermDrop(event,ui) {
@@ -84,10 +86,10 @@ function handleTermDrop(event,ui) {
 	var droppable = $(this);
 	var draggedFrom = $(draggable.parent());
 	if (droppable.children().length < 3){
-		droppable.toggleClass("highlighted");
+		droppable.toggleClass('highlighted');
 		draggable.position(0,0);
 		droppable.append(draggable);
-		if (draggedFrom.hasClass("side") && draggedFrom.attr('id') != droppable.attr('id')){
+		if (draggedFrom.hasClass('side') && draggedFrom.attr('id') != droppable.attr('id')){
 			var term = $(draggable.children()[0]);
 			var coefficient = $(term.children()[0]);
 			if (term.css('backgroundColor') == red){
@@ -106,7 +108,7 @@ function handleRackDrop(event,ui){
 	var draggable = $(ui.draggable);
 	var droppable = $(this);
 	if (droppable.children().length < 10){
-		droppable.toggleClass("highlighted");
+		droppable.toggleClass('highlighted');
 		droppable.append(draggable);
 	}
 	update();
@@ -122,6 +124,7 @@ function handleTermToTermDrop(event,ui){
 	var draggable = $(ui.draggable);
 	var droppable = $(this);
 	if (draggable.attr('class') == droppable.attr('class')){
+
 		var term1 = $(droppable.children()[0]);
 		var term2 = $(draggable.children()[0]);
 		var coefficient1 = $(term1.children()[0]);
@@ -129,24 +132,28 @@ function handleTermToTermDrop(event,ui){
 		var val1 = coefficient1.attr('value');
 		var val2 = coefficient2.attr('value');
 		var sum = parseFloat(val1) + parseFloat(val2);
+		
 		coefficient1.attr('value',sum);
+		
 		if (sum>0){
 			term1.css('backgroundColor',blue);
 		}
 		else {
 			term1.css('backgroundColor',red);
 		}
+		
 		draggable.remove();
 	}
-	droppable.toggleClass("highlighted");
+
+	droppable.toggleClass('highlighted');
 	update();
 }
 
 function newX(me) {
 	if (_termRack.children().length<8){
 			
-		var wrapper = $("<div>");
-		wrapper.addClass("wrapper");
+		var wrapper = $('<div>');
+		wrapper.addClass('wrapper');
 		wrapper.draggable({
 			containment:'#canvas_container',
 			cursor: 'move',
@@ -162,23 +169,23 @@ function newX(me) {
 			over: highlightSide,
 			out: highlightSide
 		});
-		var newXTermDiv = $("<div>");
+		var newXTermDiv = $('<div>');
 		newXTermDiv.attr('id','term_'+(TERM_ID++));
 		newXTermDiv.addClass('term x');
 		
 		//create input field
-		var newXTermInput = $("<input>");
-		newXTermInput.addClass("coefficient");
+		var newXTermInput = $('<input>');
+		newXTermInput.addClass('coefficient');
 		newXTermInput.attr('value',1);
-		newXTermInput.attr('maxLength',3);
-		newXTermInput.css('line-height',2);
+		newXTermInput.attr('maxLength',5);
+		newXTermInput.css('line-height',3.5);
 		newXTermInput.css('margin-left','-15px');
 		newXTermInput[0].oninput = function(){
 			if (this.value < 0){
-				newXTermDiv.css("backgroundColor","red");
+				newXTermDiv.css('backgroundColor','red');
 			}
 			else {
-				newXTermDiv.css("backgroundColor","blue");
+				newXTermDiv.css('backgroundColor','blue');
 			}
 			update();
 		}
@@ -189,8 +196,8 @@ function newX(me) {
 		});
 
 		//create span
-		var newXSpan = $("<span>X</span>");
-		newXSpan.addClass("xterm_x_label");
+		var newXSpan = $('<span>X</span>');
+		newXSpan.addClass('xterm_x_label');
 
 		newXTermDiv.append(newXTermInput);
 		newXTermDiv.append(newXSpan);
@@ -204,8 +211,8 @@ function newX(me) {
 function newC(me) {
 	if (_termRack.children().length<8){
 
-		var wrapper = $("<div>");
-		wrapper.addClass("wrapper");
+		var wrapper = $('<div>');
+		wrapper.addClass('wrapper');
 		wrapper.draggable({
 			containment:'#canvas_container',
 			cursor: 'move',
@@ -223,21 +230,21 @@ function newC(me) {
 		});
 
 
-		var newCTermDiv = $("<div>");
+		var newCTermDiv = $('<div>');
 		newCTermDiv.attr('id','term_'+(TERM_ID++));
-		newCTermDiv.addClass("term c");
+		newCTermDiv.addClass('term c');
 		
-		var newCTermInput = $("<input>");
-		newCTermInput.addClass("coefficient");
+		var newCTermInput = $('<input>');
+		newCTermInput.addClass('coefficient constant');
 		newCTermInput.attr('value',1);
-		newCTermInput.attr('maxLength',3);
-		newCTermInput.css('line-height',2);
+		newCTermInput.attr('maxLength',6);
+		newCTermInput.css('line-height',3.5);
 		newCTermInput[0].oninput = function(){
 			if (this.value < 0){
-				newCTermDiv.css("backgroundColor","red");
+				newCTermDiv.css('backgroundColor','red');
 			}
 			else {
-				newCTermDiv.css("backgroundColor","blue");
+				newCTermDiv.css('backgroundColor','blue');
 			}
 			update();
 		}
@@ -258,6 +265,9 @@ function newC(me) {
 
 function update(me) {
 	calculateWeights();
+	if (_scale_eq.attr('value') == _problem_eq.attr('value')){
+
+	}
 	rotate();
 }
 
@@ -280,12 +290,22 @@ function calculateWeights(){
 		var term = $(wrapper.children()[0]);
 		var coefficient = $(term.children()[0]);
 	
-		if (term.hasClass("x")) {
-			var w = parseFloat(coefficient.attr('value') * x);
-			A += parseFloat(coefficient.attr('value'));
+		if (term.hasClass('x')) {
+			var c;
+			if (coefficient.attr('value')==""){
+				c = 1;
+			}
+			else {
+				c = parseFloat(coefficient.attr('value'));	
+			}
+
+			var w = parseFloat(c * x);
+			
+			A += c;
+			
 			leftWeight += w;
 		}
-		else if (term.hasClass("c")) {
+		else if (term.hasClass('c')) {
 			var w =parseFloat(coefficient.attr('value'));
 			C += w;
 			leftWeight += w;
@@ -298,12 +318,20 @@ function calculateWeights(){
 		var term = $(wrapper.children()[0]);
 		var coefficient = $(term.children()[0]);
 	
-		if (term.hasClass("x")) {
-			var w = parseFloat(coefficient.attr('value') * x);
-			B += parseFloat(coefficient.attr('value'));
+		if (term.hasClass('x')) {
+			var c;
+			if (coefficient.attr('value') == ""){
+				c = 1;
+			} else {
+				c = parseFloat(coefficient.attr('value'));	
+			}
+
+			var w = parseFloat(c * x);
+
+			B += c;
 			rightWeight += w;
 		}
-		else if (term.hasClass("c")) {
+		else if (term.hasClass('c')) {
 			var w = parseFloat(coefficient.attr('value'));
 			D += w;
 			rightWeight += w;
@@ -324,12 +352,12 @@ function calculateWeights(){
 	}
 
 	//build equation
-	var eq = "";
+	var eq = '';
 
 	if (A!=0){
-		eq += A+"X";
+		eq += A+'X';
 		if (C!=0){
-			eq += "+"+C;
+			eq += '+'+C;
 		}
 	}
 	else {
@@ -337,43 +365,46 @@ function calculateWeights(){
 	}
 	
 	if (angle == -25){
-		eq += "<";
+		eq += '<';
 	}
 	else if (angle == 25){
-		eq += ">";
+		eq += '>';
 	}
 	else if (angle == 0){
-		eq += "=";
+		eq += '=';
 	}
 
 
 	if (B!=0){
-		eq += B+"X";
+		eq += B+'X';
 		if (D!=0){
-			eq += "+"+D;
+			eq += '+'+D;
 		}
 	}
 	else {
 		eq += D;
 	}
-	_eq.attr('value',eq);
+
+	eq = eq.replace(/\+\-/g, '-');
+	console.log(eq);
+	_scale_eq.attr('value',eq);
 	return [A,B,C,D];
 }
 
 function rotate() {
 
 	if (angle == -25){
-		_sides.addClass("sides-rotated-ccw");
-		_sides.removeClass("sides-rotated-cw");
-		_sides.removeClass("sides-flat");
+		_sides.addClass('sides-rotated-ccw');
+		_sides.removeClass('sides-rotated-cw');
+		_sides.removeClass('sides-flat');
 	} else if (angle == 25){
-		_sides.removeClass("sides-rotated-ccw");
-		_sides.addClass("sides-rotated-cw");
-		_sides.removeClass("sides-flat");
+		_sides.removeClass('sides-rotated-ccw');
+		_sides.addClass('sides-rotated-cw');
+		_sides.removeClass('sides-flat');
 	} else if (angle == 0){
-		_sides.removeClass("sides-rotated-ccw");
-		_sides.removeClass("sides-rotated-cw");
-		_sides.addClass("sides-flat");
+		_sides.removeClass('sides-rotated-ccw');
+		_sides.removeClass('sides-rotated-cw');
+		_sides.addClass('sides-flat');
 	}
 
 }

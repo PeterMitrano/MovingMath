@@ -37,8 +37,11 @@
       <center>    
         <div id = "program">  
           <div id="toolbar">
-            <textarea id="problem_eq" class="equation_field" rows="1" cols="25" maxlength="25">Type your equation here!</textarea>
-            <textarea id="scale_eq" class="equation_field scale" rows="1" cols="25" maxlength="25" readonly>Your scale represents...</textarea>
+            <div id="equations">
+              <textarea id="problem_eq"rows="1" cols="25" maxlength="25">Type your equation here!</textarea>
+              <span id="matches" cols="1">?</span>
+              <textarea id="scale_eq" rows="1" cols="25" maxlength="25" readonly>Your scale represents...</textarea>
+            </div>
             <div id="buttons">
               <button id="button" type="button" onclick="newC(event)">New Constant Term</button>
               <button id="button" type="button" onclick="newX(event)"> New X Term</button>
@@ -64,7 +67,8 @@
 
         <div id="instructions">
           <p>
-            <b>Instructions:</b>
+            <strong>Instructions:</strong>
+            <br>
             The above scale can be used to visualize equations, and demonstrate how different algebraic manipulations preserve equality. You can place difference "Constant" or "X" terms on the sides of the scale by dragging them by the gray handles. You can edit the coefficients of the terms. Negative coefficients will display as red, and positive coefficients as blue. Drag terms to the trash or the rack to remove them from calculation. You can type an equation at the top right text area, and verify that it equals what's on the scale by looking at the top right text area. When using an equation, click "Balance the equation" to set the correct value of X. This helps demonstrate that the equation is true at the value of X.
             Have fun!
           </p>

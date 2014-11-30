@@ -10,8 +10,15 @@
 		margin:10px;
 		font-size:24px;
 		text-align:center;
-		resize:none;}
+		resize:none;
+	}
 	
+	#button{
+		width: 237px;
+		height: 50px;
+		font-size:20px;
+	}
+
 	#more_buttons{
 		margin:20px;
 	}

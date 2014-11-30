@@ -19,47 +19,6 @@ var rightWeight;
 
 function init() {
 
-	$.fn.addTouch = function(){
-	  this.each(function(i,el){
-	    $(el).bind('touchstart touchmove touchend touchcancel',function(){
-	      //we pass the original event object because the jQuery event
-	      //object is normalized to w3c specs and does not provide the TouchList
-	      handleTouch(event);
-	    });
-	  });
-	 
-	  var handleTouch = function(event)
-	  {
-	    var touches = event.changedTouches,
-	            first = touches[0],
-	            type = '';
-	 
-	    switch(event.type)
-	    {
-	      case 'touchstart':
-	        type = 'mousedown';
-	        break;
-	 
-	      case 'touchmove':
-	        type = 'mousemove';
-	        event.preventDefault();
-	        break;
-	 
-	      case 'touchend':
-	        type = 'mouseup';
-	        break;
-	 
-	      default:
-	        return;
-	    }
-	 
-	    var simulatedEvent = document.createEvent('MouseEvent');
-	    simulatedEvent.initMouseEvent(type, true, true, window, 1, first.screenX, first.screenY, first.clientX, first.clientY, false, false, false, false, 0/*left*/, null);
-	    first.target.dispatchEvent(simulatedEvent);
-	  };
-	};
-
-
 	_termRack = $("#new_term_rack");
 	var termRackHeight = _termRack.clientHeight;
 	
@@ -105,7 +64,6 @@ function init() {
 	newC();
 	newC();
 	newX();
-	newX();
 }
 
 function highlightSide(event,ui){
@@ -140,24 +98,28 @@ function handleTrashDrop(event,ui) {
 function newX(me) {
 	console.log("new x");
 	if (_termRack.children().length<10){
-		//create div
-		var newXTermDiv = $("<div>");
-		newXTermDiv.addClass('term x');
-		newXTermDiv.draggable({
+			
+		var wrapper = $("<div>");
+		wrapper.addClass("wrapper");
+		wrapper.draggable({
 			containment:'#canvas_container',
 			cursor: 'move',
-			opacity: 0.7,
 			snap: true,
+			opacity: 0.7,
 			zIndex: 1,
 			tolerance: 'touch',
 			revert: true
 		});
 
+		var newXTermDiv = $("<div>");
+		newXTermDiv.addClass('term x');
+		
 		//create input field
 		var newXTermInput = $("<input>");
 		newXTermInput.addClass("coefficient");
 		newXTermInput.attr('value',1);
 		newXTermInput.attr('maxLength',3);
+		newXTermInput.css('line-height',2);
 		newXTermInput[0].oninput = function(){
 			if (this.value < 0){
 				newXTermDiv.css("backgroundColor","red");
@@ -175,17 +137,18 @@ function newX(me) {
 		newXTermDiv.append(newXTermInput);
 		newXTermDiv.append(newXSpan);
 		
-		//add div to XTerm
-		_termRack.append(newXTermDiv);
+		wrapper.append(newXTermDiv);
+
+		_termRack.append(wrapper);
 	}
 }
 
 function newC(me) {
 	if (_termRack.children().length<10){
-		//create div
-		var newCTermDiv = $("<div>");
-		newCTermDiv.addClass("term c");
-		newCTermDiv.draggable({
+
+		var wrapper = $("<div>");
+		wrapper.addClass("wrapper");
+		wrapper.draggable({
 			containment:'#canvas_container',
 			cursor: 'move',
 			snap: true,
@@ -195,10 +158,15 @@ function newC(me) {
 			revert: true
 		});
 
+
+		var newCTermDiv = $("<div>");
+		newCTermDiv.addClass("term c");
+		
 		var newCTermInput = $("<input>");
 		newCTermInput.addClass("coefficient");
 		newCTermInput.attr('value',1);
 		newCTermInput.attr('maxLength',3);
+		newCTermInput.css('line-height',2);
 		newCTermInput[0].oninput = function(){
 			if (this.value < 0){
 				newCTermDiv.css("backgroundColor","red");
@@ -208,10 +176,12 @@ function newC(me) {
 			}
 			update();
 		}
-		//add input to div
+		
 		newCTermDiv.append(newCTermInput);
-		//add div to CTerm
-		_termRack.append(newCTermDiv);
+
+		wrapper.append(newCTermDiv);
+		
+		_termRack.append(wrapper);
 	}
 }
 
@@ -247,15 +217,16 @@ function calculateWeights(){
 
 	for (var i = 0,l = _leftSide.children().length;i<l;i++){
 	
-		var child = $(_leftSide.children()[i]);
-		var coefficient = $(child.children()[0]);
+		var wrapper = $(_leftSide.children()[i]);
+		var term = $(wrapper.children()[0]);
+		var coefficient = $(term.children()[0]);
 	
-		if (child.hasClass("x")) {
+		if (term.hasClass("x")) {
 			var w = parseInt(coefficient.attr('value') * x);
 			A += parseInt(coefficient.attr('value'));
 			leftWeight += w;
 		}
-		else if (child.hasClass("c")) {
+		else if (term.hasClass("c")) {
 			var w =parseInt(coefficient.attr('value'));
 			C += w;
 			leftWeight += w;
@@ -264,15 +235,16 @@ function calculateWeights(){
 	
 	for (var i = 0,l = _rightSide.children().length;i<l;i++){
 	
-		var child = $(_rightSide.children()[i]);
-		var coefficient = $(child.children()[0]);
+		var wrapper = $(_rightSide.children()[i]);
+		var term = $(wrapper.children()[0]);
+		var coefficient = $(term.children()[0]);
 	
-		if (child.hasClass("x")) {
+		if (term.hasClass("x")) {
 			var w = parseInt(coefficient.attr('value') * x);
 			B += parseInt(coefficient.attr('value'));
 			rightWeight += w;
 		}
-		else if (child.hasClass("c")) {
+		else if (term.hasClass("c")) {
 			var w = parseInt(coefficient.attr('value'));
 			D += w;
 			rightWeight += w;

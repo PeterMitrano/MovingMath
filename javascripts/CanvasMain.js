@@ -6,6 +6,8 @@ var centerY = 300;
 var angle = 0;
 var TERM_ID = 0;
 var A = 0, B = 0, C = 0, D = 0;
+var red = "rgb(255, 0, 0)";
+var blue = "rgb(0, 0, 255)";
 var _xVal;
 var _eq;
 var _termRack;
@@ -81,14 +83,11 @@ function handleTermDrop(event,ui) {
 	var draggable = $(ui.draggable);
 	var droppable = $(this);
 	var draggedFrom = $(draggable.parent());
-	console.log(droppable+" "+draggedFrom);
 	if (droppable.children().length < 3){
 		droppable.toggleClass("highlighted");
 		draggable.position(0,0);
 		droppable.append(draggable);
 		if (draggedFrom.hasClass("side") && draggedFrom.attr('id') != droppable.attr('id')){
-			var red = "rgb(255, 0, 0)";
-			var blue = "rgb(0, 0, 255)";
 			var term = $(draggable.children()[0]);
 			var coefficient = $(term.children()[0]);
 			if (term.css('backgroundColor') == red){
@@ -97,8 +96,6 @@ function handleTermDrop(event,ui) {
 			} else if (term.css('backgroundColor') == blue){
 				term.css('backgroundColor', red);
 				coefficient.attr('value',-Math.abs(parseFloat(coefficient.attr('value'))));
-			} else {
-				console.log(term.css('backgroundColor'));
 			}
 		}
 	}
@@ -108,10 +105,9 @@ function handleTermDrop(event,ui) {
 function handleRackDrop(event,ui){
 	var draggable = $(ui.draggable);
 	var droppable = $(this);
-	if (droppable.children().length < 3){
+	if (droppable.children().length < 10){
 		droppable.toggleClass("highlighted");
 		droppable.append(draggable);
-		draggable.position(0,0);
 	}
 	update();
 }
@@ -122,8 +118,31 @@ function handleTrashDrop(event,ui) {
 	update();
 }
 
+function handleTermToTermDrop(event,ui){
+	var draggable = $(ui.draggable);
+	var droppable = $(this);
+	if (draggable.className == droppable.className){
+		var term1 = $(droppable.children()[0]);
+		var term2 = $(draggable.children()[0]);
+		var coefficient1 = $(term1.children()[0]);
+		var coefficient2 = $(term2.children()[0]);
+		var val1 = coefficient1.attr('value');
+		var val2 = coefficient2.attr('value');
+		var sum = parseFloat(val1) + parseFloat(val2);
+		coefficient1.attr('value',sum);
+		if (sum>0){
+			term1.css('backgroundColor',blue);
+		}
+		else {
+			term1.css('backgroundColor',red);
+		}
+		draggable.remove();
+		droppable.toggleClass("highlighted");
+	}
+	update();
+}
+
 function newX(me) {
-	console.log("new x");
 	if (_termRack.children().length<10){
 			
 		var wrapper = $("<div>");
@@ -138,7 +157,11 @@ function newX(me) {
 			revert: true,
 			revertDuration: 0
 		});
-
+		wrapper.droppable({
+			drop: handleTermToTermDrop,
+			over: highlightSide,
+			out: highlightSide
+		});
 		var newXTermDiv = $("<div>");
 		newXTermDiv.attr('id','term_'+(TERM_ID++));
 		newXTermDiv.addClass('term x');
@@ -192,6 +215,11 @@ function newC(me) {
 			tolerance: 'touch',
 			revert: true,
 			revertDuration: 0
+		});
+		wrapper.droppable({
+			drop: handleTermToTermDrop,
+			over: highlightSide,
+			out: highlightSide
 		});
 
 
@@ -281,9 +309,6 @@ function calculateWeights(){
 			rightWeight += w;
 		}
 	}
-
-	console.log(leftWeight+" "+rightWeight);
-
 
 	var diff = Math.abs(rightWeight-leftWeight);
 

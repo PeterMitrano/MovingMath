@@ -120,7 +120,8 @@ function newX(me) {
 			opacity: 0.7,
 			zIndex: 1,
 			tolerance: 'touch',
-			revert: true
+			revert: true,
+			revertDuration: 0
 		});
 
 		var newXTermDiv = $("<div>");
@@ -173,7 +174,8 @@ function newC(me) {
 			opacity: 0.7,
 			zIndex: 1,
 			tolerance: 'touch',
-			revert: true
+			revert: true,
+			revertDuration: 0
 		});
 
 

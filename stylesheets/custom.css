@@ -42,7 +42,6 @@
 
 		#new_term_rack{
 			height:120px;
-			background-color:#F2F2F2;
 			padding-top: 10px;
 			border-bottom:4px solid #000;
 		}
@@ -131,7 +130,7 @@
 				margin-left: 10px;
 			}
 
-			.side.highlighted {
+			.highlighted {
 				background-color: #b1ddff;
 			}
 

@@ -20,11 +20,15 @@ var rightWeight;
 function init() {
 
 	_termRack = $("#new_term_rack");
-	var termRackHeight = _termRack.clientHeight;
+	_termRack.droppable({
+		drop: handleRackDrop,
+		over: highlightSide,
+		out: highlightSide
+	});
 	
 	//offset sides
 	_sides = $("#sides");
-	_sides.css("top",centerY - 20 - _sides.css("bottom-border-width") - termRackHeight);
+	_sides.css("top",centerY - 20 - _sides.css("bottom-border-width") - _termRack.clientHeight);
 
 
 	_leftSide = $('<div>');
@@ -90,6 +94,15 @@ function handleTermDrop(event,ui) {
 	update();
 }
 
+function handleRackDrop(event,ui){
+	var draggable = $(ui.draggable);
+	var droppable = $(this);
+	if (droppable.children().length < 5){
+		droppable.toggleClass("highlighted");
+		droppable.append(draggable);
+	}
+}
+
 function handleTrashDrop(event,ui) {
 	var draggable = $(ui.draggable);
 	draggable.remove();
@@ -149,12 +162,12 @@ function newC(me) {
 		var wrapper = $("<div>");
 		wrapper.addClass("wrapper");
 		wrapper.draggable({
-			containment:'#canvas_container',
+			//containment:'#canvas_container',
 			cursor: 'move',
-			snap: true,
+			//snap: true,
 			opacity: 0.7,
 			zIndex: 1,
-			tolerance: 'touch',
+			//tolerance: 'touch',
 			revert: true
 		});
 

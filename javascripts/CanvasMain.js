@@ -128,6 +128,7 @@ function newX(me) {
 		newXTermDiv.addClass('term x');
 		
 		//create input field
+		var newXTermInputSpan = $("<span>");
 		var newXTermInput = $("<input>");
 		newXTermInput.addClass("coefficient");
 		newXTermInput.attr('value',1);
@@ -142,12 +143,13 @@ function newX(me) {
 			}
 			update();
 		}
+		
 		//create span
 		var newXSpan = $("<span>X</span>");
 		newXSpan.addClass("xterm_x_label");
 
-		//add span and input filed to div
-		newXTermDiv.append(newXTermInput);
+		newXTermInputSpan.append(newXTermInput)
+		newXTermDiv.append(newXTermInputSpan);
 		newXTermDiv.append(newXSpan);
 		
 		wrapper.append(newXTermDiv);

@@ -17,7 +17,6 @@ var rightWeight;
 
 function init() {
 
-	var leftSideHeight = 50;
 	_termRack = $("#new_term_rack");
 	var termRackHeight = _termRack.clientHeight;
 	

@@ -99,10 +99,10 @@ function handleTermDrop(event,ui) {
 			var coefficient = $(term.children()[0]);
 			if (term.css('backgroundColor') === red){
 				term.css('backgroundColor', blue);
-				coefficient.attr('value',Math.abs(parseFloat(coefficient.attr('value'))));
+				coefficient.attr('value',Math.abs(parseFloat(coefficient.val())));
 			} else if (term.css('backgroundColor') === blue){
 				term.css('backgroundColor', red);
-				coefficient.attr('value',-Math.abs(parseFloat(coefficient.attr('value'))));
+				coefficient.attr('value',-Math.abs(parseFloat(coefficient.val())));
 			}
 		}
 	}
@@ -139,8 +139,8 @@ function handleTermToTermDrop(event,ui){
 		
 		var coefficient1 = $(term1.children()[0]);
 		var coefficient2 = $(term2.children()[0]);
-		var val1 = coefficient1.attr('value');
-		var val2 = coefficient2.attr('value');
+		var val1 = coefficient1.val();
+		var val2 = coefficient2.val();
 		var sum = parseFloat(val1) + parseFloat(val2);
 		
 		coefficient1.attr('value',sum);
@@ -184,13 +184,13 @@ function newX(me) {
 		newXTermDiv.addClass('term x');
 		
 		//create input field
-		var newXTermInput = $('<input>');
-		newXTermInput.addClass('coefficient');
-		newXTermInput.attr('value',1);
-		newXTermInput.attr('maxLength',5);
-		newXTermInput.css('line-height',3.5);
-		newXTermInput.css('margin-left','-15px');
-		newXTermInput[0].oninput = function(){
+		var newXCoefficient = $('<input>');
+		newXCoefficient.addClass('coefficient');
+		newXCoefficient.attr('value',1);
+		newXCoefficient.attr('maxLength',5);
+		newXCoefficient.css('line-height',3.5);
+		newXCoefficient.css('margin-left','-15px');
+		newXCoefficient[0].oninput = function(){
 			if (this.value < 0){
 				newXTermDiv.css('backgroundColor','red');
 			}
@@ -201,7 +201,7 @@ function newX(me) {
 		}
 		newXTermDiv.each(function() {
 			$(this).click(function() {
-				newXTermInput.focus();
+				newXCoefficient.focus();
 			});
 		});
 
@@ -209,7 +209,7 @@ function newX(me) {
 		var newXSpan = $('<span>X</span>');
 		newXSpan.addClass('xterm_x_label');
 
-		newXTermDiv.append(newXTermInput);
+		newXTermDiv.append(newXCoefficient);
 		newXTermDiv.append(newXSpan);
 		
 		wrapper.append(newXTermDiv);
@@ -244,12 +244,12 @@ function newC(me) {
 		newCTermDiv.attr('id','term_'+(TERM_ID++));
 		newCTermDiv.addClass('term c');
 		
-		var newCTermInput = $('<input>');
-		newCTermInput.addClass('coefficient constant');
-		newCTermInput.attr('value',1);
-		newCTermInput.attr('maxLength',6);
-		newCTermInput.css('line-height',3.5);
-		newCTermInput[0].oninput = function(){
+		var newCCoefficient = $('<input>');
+		newCCoefficient.addClass('coefficient constant');
+		newCCoefficient.attr('value',1);
+		newCCoefficient.attr('maxLength',6);
+		newCCoefficient.css('line-height',3.5);
+		newCCoefficient[0].oninput = function(){
 			if (this.value < 0){
 				newCTermDiv.css('backgroundColor','red');
 			}
@@ -261,11 +261,11 @@ function newC(me) {
 
 		newCTermDiv.each(function() {
 			$(this).click(function() {
-				newCTermInput.focus();
+				newCCoefficient.focus();
 			});
 		});
 		
-		newCTermDiv.append(newCTermInput);
+		newCTermDiv.append(newCCoefficient);
 
 		wrapper.append(newCTermDiv);
 		
@@ -289,7 +289,7 @@ function calculateWeights(){
 	leftWeight = 0;
 	rightWeight = 0;
 	var A=0,B=0,C=0,D=0;
-	var x = parseFloat(_xVal.attr('value'));
+	var x = getXVal();
 
 	for (var i = 0,l = _leftSide.children().length;i<l;i++){
 	
@@ -299,11 +299,11 @@ function calculateWeights(){
 	
 		if (term.hasClass('x')) {
 			var c;
-			if (coefficient.attr('value')===""){
+			if (coefficient.val()===""){
 				c = 1;
 			}
 			else {
-				c = parseFloat(coefficient.attr('value'));	
+				c = getFloatVal(coefficient);	
 			}
 
 			var w = parseFloat(c * x);
@@ -313,7 +313,7 @@ function calculateWeights(){
 			leftWeight += w;
 		}
 		else if (term.hasClass('c')) {
-			var w =parseFloat(coefficient.attr('value'));
+			var w =getFloatVal(coefficient);
 			C += w;
 			leftWeight += w;
 		}
@@ -327,10 +327,10 @@ function calculateWeights(){
 	
 		if (term.hasClass('x')) {
 			var c;
-			if (coefficient.attr('value') === ""){
+			if (coefficient.val() === ""){
 				c = 1;
 			} else {
-				c = parseFloat(coefficient.attr('value'));	
+				c = getFloatVal(coefficient);	
 			}
 
 			var w = parseFloat(c * x);
@@ -339,7 +339,7 @@ function calculateWeights(){
 			rightWeight += w;
 		}
 		else if (term.hasClass('c')) {
-			var w = parseFloat(coefficient.attr('value'));
+			var w = getFloatVal(coefficient);
 			D += w;
 			rightWeight += w;
 		}
@@ -393,7 +393,6 @@ function calculateWeights(){
 	}
 
 	eq = eq.replace(/\+\-/g, '-');
-	console.log(eq);
 	_scale_eq.attr('value',eq);
 	return [A,B,C,D];
 }
@@ -415,3 +414,24 @@ function rotate() {
 	}
 
 }
+
+function getXVal(){
+	return getFloatVal(_xVal);
+}
+
+function getFloatVal(object){
+	var val = object.val();
+	var floatVal;
+	//check for fraction
+	var i;
+	if ((i = val.indexOf("/")) > -1){
+		var num = val.substring(0,i);
+		var denom = val.substring(i+1);
+		floatVal = parseFloat(num)/parseFloat(denom);
+	}
+	else {
+		floatVal = parseFloat(val);
+	}
+	return floatVal;
+}
+

@@ -33,11 +33,22 @@
     
       </section>
       <center>    
+
+        <div id="instructions">
+          <p>
+            <strong>Instructions:</strong>
+            <br>
+            The above scale can be used to visualize equations. Drag and drop "Constant" or "X" terms on the sides of the scale by dragging them by the gray handles! You can edit the coefficients of the terms. Drag terms to the trash or the rack to remove them from calculation. You can type an equation at the top right textbox, and verify that it equals what's on the scale by looking at the top right textbox. When using an equation, click "Balance the equation" to set the correct value of X. This helps demonstrate that the equation is true at the value of X.
+            Have fun!
+          </p>
+        </div>
+        <br>
+
         <div id = "program">  
           <div id="toolbar">
             <div id="equations">
-              <textarea id="problem_eq"rows="1" cols="25" maxlength="25" placeholder="Type your equation here!"></textarea>
-              <textarea id="scale_eq" rows="1" cols="25" maxlength="25" readonly>Your scale represents...</textarea>
+              <input id="problem_eq"rows="1" cols="25" maxlength="20" placeholder="Type your equation here!">
+              <input id="scale_eq" rows="1" cols="25" maxlength="20" value="Your scale represents..." readonly>
             </div>
             <div id="buttons">
               <button id="button" type="button" onclick="newC(event)">New Constant Term</button>
@@ -47,8 +58,8 @@
 
             <div id="more_buttons">
               <span id="x_label">X=<span>
-              <input id="x_val" class="invisible" value="0.0" maxlength="7" />
-              <input type="checkbox" value="show" onclick="hideX(this)"></input>
+              <input id="x_val" value="0.0" maxlength="7" />
+              <input type="checkbox" value="show" onclick="hideX(this)" checked></input>
               <span id="show_x">show X solution</span>
             </div>
           </div>
@@ -60,17 +71,11 @@
           </div>
         </div>
 
-        <div id="instructions">
-          <p>
-            <strong>Instructions:</strong>
-            <br>
-            The above scale can be used to visualize equations, and demonstrate how different algebraic manipulations preserve equality. You can place difference "Constant" or "X" terms on the sides of the scale by dragging them by the gray handles. You can edit the coefficients of the terms. Negative coefficients will display as red, and positive coefficients as blue. Drag terms to the trash or the rack to remove them from calculation. You can type an equation at the top right text area, and verify that it equals what's on the scale by looking at the top right text area. When using an equation, click "Balance the equation" to set the correct value of X. This helps demonstrate that the equation is true at the value of X.
-            Have fun!
-          </p>
-        </div>
-
-
-        <h4>You can download a really bad version of the application <a href="AlgebraScale.jar">here</a>. You can view the source code <a href="https://www.github.com/petermitrano/MovingMath/">here</a>, but you'll need java installed on your computer.</h4>
+        <h4>
+          You can download a really bad version of the application if you want <a href="AlgebraScale.jar">here</a>.
+          <br>
+          You can view the source code <a href="https://www.github.com/petermitrano/MovingMath/">here</a>, but you'll need java installed on your computer.
+        </h4>
 
       </center>
     </div>
@@ -83,5 +88,5 @@
       </footer>
     </div>
   </body>
-  <script src="javascripts/CanvasMain.js" type="text/javascript"></script>
+  <script src="javascripts/custom.js" type="text/javascript"></script>
 </html>

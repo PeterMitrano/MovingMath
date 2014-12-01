@@ -9,6 +9,7 @@ var A = 0, B = 0, C = 0, D = 0;
 var red = 'rgb(255, 0, 0)';
 var blue = 'rgb(0, 0, 255)';
 var _xVal;
+var _show_x;
 var _scale_eq;
 var _problem_eq;
 var _termRack;
@@ -77,6 +78,10 @@ function init() {
 	newX();
 }
 
+function hideX(cb){
+	_xVal.toggleClass("invisible");
+}
+
 function highlightSide(event,ui){
 	$(this).toggleClass('highlighted');
 }
@@ -128,7 +133,7 @@ function handleTermToTermDrop(event,ui){
 	var term2 = $(draggable.children()[0]);
 
 	console.log(term1.attr('class') + " " + term2.attr('class'));
-	
+
 	if (term1.attr('class') === term2.attr('class')){
 
 		
